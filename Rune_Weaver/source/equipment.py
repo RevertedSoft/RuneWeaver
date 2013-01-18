@@ -9,7 +9,7 @@ class Equipment():
 class Weapon(Equipment):
 
     def __init__(self, weight=0, value=0, damage=1, damType='crushing'):
-        Equipment.__init__(weight, value)
+        Equipment.__init__(self, weight, value)
         
         self.damage = damage
         self.damType = damType
@@ -18,7 +18,7 @@ class Weapon(Equipment):
 class Armor(Equipment):
 
     def __init__(self, weight=0, value=0, armor=1, crushRes=0, piercRes=0, slashRes=0, bodyLoc='torso'):
-        Equipment.__init__(weight, value)
+        Equipment.__init__(self, weight, value)
 
         self.armor = armor
         self.crushRes = crushRes

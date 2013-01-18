@@ -60,7 +60,7 @@ class Creature():
 class Humanoid(Creature):
     '''This class contains creatures such as goblins, orcs, dwarves, elves and of course Humans'''
     def __init__(self):
-        Creature.__init__()
+        Creature.__init__(self)
         self.headArmor = None
         self.shoulderArmor = None
         self.torsoArmor = None

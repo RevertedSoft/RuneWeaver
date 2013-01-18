@@ -5,7 +5,7 @@ class Player(creature.Humanoid):
 
     def __init__(self):
 
-        creature.Humanoid.__init__()
+        creature.Humanoid.__init__(self)
 
         self.level = 1
 
