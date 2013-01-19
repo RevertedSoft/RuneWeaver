@@ -39,6 +39,7 @@ class Creature():
         self.maxHealth = 10 + (self.constitution + (self.strength / 2))#TODO: this is not right
         self.currentHealth = self.maxHealth
         self.palleteSize = (self.intelligence // 3)#TODO: this is not right
+        self.runePallate = [] # the empty list of runes the creature has summoned
         self.armor = (self.strength // 3) + (self.wisdom // 6)
         self.magicRes = (self.intelligence // 6) + (self.wisdom // 3)
         self.evasion = self.dexterity//2
@@ -47,12 +48,16 @@ class Creature():
         self.crushRes = self.constitution//10
         self.piercRes = self.constitution//10
         self.slashRes = self.constitution//10
+        self.damage = 1# base damage of the creature unarmed
+        self.attRange = 1# base attack range of the creature
+
         self.dead = False
         self.action = 0# when this value reaches 100 the creature is ready to make a physical action
         self.magicAction = 0# when this value reaches 100 the creature is ready to make a magic action
         self.isTurn = False# is it the creatures physical turn?
         self.isMagicTurn = False# is it the creatures magic turn?
         self.targetList = [] # this list determines all creatures in range that the creature is able to attack
+        self.target = None # this is the target the creature has determined it wants to attack
         
 
         def dealDamage(self):
@@ -71,8 +76,6 @@ class Creature():
             self.checkDeath
             if self.dead:
                 pass
-                
-
             
 
 class Humanoid(Creature):

@@ -28,16 +28,17 @@ class Equipment():
 
 class Weapon(Equipment):
 
-    def __init__(self, weight=0, value=0, damage=1, damType='crushing'):
+    def __init__(self, weight=0, value=0, damage=1, damType='crushing', attRange=1):
         Equipment.__init__(self, weight, value)
         
         self.damage = damage
         self.damType = damType
+        self.attRange = attRange # The attack range of the weapon
 
 class MagicWeapon(Weapon):
 
-    def __init__(self, weight=0, value=0, damage=1, damType='crushing', runeList=[]):
-        Weapon.__init__(self, weight, value, damage, damType)
+    def __init__(self, weight=0, value=0, damage=1, damType='crushing', attRange=1, runeList=[]):
+        Weapon.__init__(self, weight, value, damage, damType, attRange)
 
         self.runes = runeList
 

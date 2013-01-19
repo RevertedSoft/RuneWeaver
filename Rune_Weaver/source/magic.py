@@ -44,12 +44,35 @@ class AugmentRune(Rune):
     '''These runes, when added to a spell in the pallete, affect the strength of a spell indirectly.
 Augment elements go in order of shadow light fire water wind earth'''
     def __init__(self, power=0, augList):
-        Rune.__init__(self, power)
+        Rune.__init__(self, power, [0,0,0,0,0,0], [0,0,0,0,0,0])
         self.shadowAug = augList[0] #these augment values determine how much a spells elements are augmented
         self.lightAug = augList[1]
         self.fireAug = augList[2]
         self.waterAug = augList[3]
         self.windAug = augList[4]
         self.earthAug = augList[5]
+
+def findPriority(runeList):
+    priority = 'augment'
+    for runes in runeList:
+        if runes.priority == 'shielding':
+            priority = 'shielding'
+            return priority
+        if runes.priority == 'curse':
+            priority = 'curse'
+        if runes.priority = 'support' and priority not 'curse':
+            priority = 'support'
+        if runes.priority = 'combat' and (priority not 'support' or priority not 'curse'):
+            priority = 'combat'
+
+    return priority
+
+def castRunes(runeList, caster):
+    '''This method is used when a creature is casting a spell.'''
+    findPriority(runeList)#used to determine the type of spell being cast
+    
+
+
+
 
 
