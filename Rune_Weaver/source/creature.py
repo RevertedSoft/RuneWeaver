@@ -1,4 +1,4 @@
-#Rune Weaver 2 v. 0.01
+#Rune Weaver v. 0.01
 #Copyright (c) 2013 RevertedSoft <revertedsoft.com>
 #
 #Permission is hereby granted, free of charge, to any person obtaining a copy 
@@ -22,8 +22,11 @@
 
 class Creature():
 
-    def __init__(self, strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0):
+    def __init__(self, name, positionX, positionY, strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0):
         '''Base constructor method for creatures.'''
+        self.name = name
+        self.positionX = positionX
+        self.positionY = positionY
         self.strength = strength # helps determine the creatures max health, also applies bonuses to the creatures physical damage
         self.constitution = constitution # helps determine the creatures max health, also applies small bonuses to physical damage resistance
         self.dexterity = dexterity # applies bonuses to the creatures evasion
@@ -49,6 +52,8 @@ class Creature():
         self.magicAction = 0# when this value reaches 100 the creature is ready to make a magic action
         self.isTurn = False# is it the creatures physical turn?
         self.isMagicTurn = False# is it the creatures magic turn?
+        self.targetList = [] # this list determines all creatures in range that the creature is able to attack
+        
 
         def dealDamage(self):
             pass
@@ -61,20 +66,12 @@ class Creature():
         def checkDeath(self):
             if self.currentHealth <= 0:
                 self.dead = True
-
+                
         def turn(self):
             self.checkDeath
             if self.dead:
                 pass
-                #handle death of the creature
-            if self.action < 100:
-                self.action += self.speed
-                if self.action > 100:
-                    self.action = 100
-            if self.magicAction < 100:
-                self.magicAction += self.magicSpeed
-                if self.magicAction > 100:
-                    self.magicAction = 100
+                
 
             
 
@@ -87,4 +84,6 @@ class Humanoid(Creature):
         self.torsoArmor = None
         self.legArmor = None
         self.footArmor = None
+        self.weapon = None
+        self.shield = None
         

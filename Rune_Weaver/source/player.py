@@ -1,4 +1,4 @@
-#Rune Weaver 2 v. 0.01
+#Rune Weaver v. 0.01
 #Copyright (c) 2013 RevertedSoft <revertedsoft.com>
 #
 #Permission is hereby granted, free of charge, to any person obtaining a copy 
@@ -37,3 +37,6 @@ class Player(Humanoid):
             return True
         else:
             return False
+
+        
+        
