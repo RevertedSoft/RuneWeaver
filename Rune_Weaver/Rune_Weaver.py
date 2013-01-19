@@ -1,8 +1,3 @@
-"""
-Rune Weaver 2, rebuilding and polishing the original Rune_Weaver
-Made by: Erik Martin - Jan. 2013
-"""
-
 #Rune Weaver 2 v. 0.01
 #Copyright (c) 2013 RevertedSoft <revertedsoft.com>
 #
@@ -22,6 +17,11 @@ Made by: Erik Martin - Jan. 2013
 #LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 #SOFTWARE.
+
+"""
+Rune Weaver 2, rebuilding and polishing the original Rune_Weaver
+Made by: Erik Martin - Jan. 2013
+"""
 
 if __name__ == '__main__':
     import source.main
