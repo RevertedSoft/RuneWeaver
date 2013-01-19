@@ -2,7 +2,7 @@
 
 class Creature():
 
-    def __init__(self, strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0):
+    def __init__(self, strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0):
         '''Base constructor method for creatures.'''
         self.strength = strength # helps determine the creatures max health, also applies bonuses to the creatures physical damage
         self.constitution = constitution # helps determine the creatures max health, also applies small bonuses to physical damage resistance
@@ -11,6 +11,7 @@ class Creature():
         self.intelligence = intelligence # applies bonuses to magic damage, determines the size of the rune pallete
         self.wisdom = wisdom # applies bonuses to armor and magic resistance, also helps determine the creatures speed with magic
         self.experience = experience #this attribute works 2 ways, it represents the players current experience, and it represents how much experience a player will gain from killing a monster
+        self.gold = gold #this is how much gold the creature is worth when killed, also used to represent how much gold the player has
         #initialize secondary attributes that are determined from the primary attributes
         self.maxHealth = 10 + (self.constitution + (self.strength / 2))#TODO: this is not right
         self.currentHealth = self.maxHealth

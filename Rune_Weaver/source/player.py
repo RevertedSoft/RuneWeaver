@@ -1,11 +1,11 @@
 ''' This module contains everything related to the player.'''
-from . import creature
+from . creature import Humanoid
 
-class Player(creature.Humanoid):
+class Player(Humanoid):
 
     def __init__(self):
 
-        creature.Humanoid.__init__(self)
+        Humanoid.__init__(self)
 
         self.level = 1
 
