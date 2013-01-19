@@ -1,4 +1,4 @@
-from Board import Board
+from .board import Board
 
 class World(Board):
 	def __init__(self, rows, cols):
