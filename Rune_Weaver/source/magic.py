@@ -21,23 +21,35 @@
 '''This module contains the rune class.'''
 
 class Rune():
+    '''attributes go in order of str, con, dex, agi, int and wis.
+Elements go in order of sha, lig, fir, wat, win, ear.'''
     
-    def __init__(self, power=0, strAttune=0, conAttune=0, dexAttune=0, agiAttune=0, intAttune=0, wisAttune=0):
+    def __init__(self, power=0, attriList, elemeList, priority='augment'):#attriList is the list of attributes the rune is affected by. elemeList is the base elements of the rune.
         self.power = power #this determines how powerful this rune is. Affects the damage it may deal, how much it may heal, or how strong a shield it will produce.
-        self.strAttune = strAttune #these attunement values determine how much their associated attribute affects the strenght of the spell
-        self.conAttune = conAttune
-        self.dexAttune = dexAttune
-        self.agiAttune = agiAttune
-        self.intAttune = intAttune
-        self.wisAttune = wisAttune
+        self.strAttune = attriList[0] #these attunement values determine how much their associated attribute affects the strength of the spell
+        self.conAttune = attriList[1]
+        self.dexAttune = attriList[2]
+        self.agiAttune = attriList[3]
+        self.intAttune = attriList[4]
+        self.wisAttune = attriList[5]
+        self.shaAttune = elemeList[0]
+        self.ligAttune = elemeList[1]
+        self.firAttune = elemeList[2]
+        self.watAttune = elemeList[3]
+        self.winAttune = elemeList[4]
+        self.earAttune = elemeList[5]
+        self.priority = priority #this is used alongside the rest of the runes on a pallete to determine what kind of spell will be cast.
 
 class AugmentRune(Rune):
-    '''These runes, when added to a spell in the pallete, affect the strength of a spell indirectly.'''
-    def __init__(self, power=0, shadowAug=0, lightAug=0, fireAug=0, waterAug=0, windAug=0, earthAug=0):
+    '''These runes, when added to a spell in the pallete, affect the strength of a spell indirectly.
+Augment elements go in order of shadow light fire water wind earth'''
+    def __init__(self, power=0, augList):
         Rune.__init__(self, power)
-        self.shadowAug = shadowAug #these augment values determine how much a spells elements are augmented
-        self.lightAug = lightAug
-        self.fireAug = fireAug
-        self.waterAug = waterAug
-        self.windAug = windAug
-        self.earthAug = earthAug
+        self.shadowAug = augList[0] #these augment values determine how much a spells elements are augmented
+        self.lightAug = augList[1]
+        self.fireAug = augList[2]
+        self.waterAug = augList[3]
+        self.windAug = augList[4]
+        self.earthAug = augList[5]
+
+

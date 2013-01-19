@@ -34,6 +34,13 @@ class Weapon(Equipment):
         self.damage = damage
         self.damType = damType
 
+class MagicWeapon(Weapon):
+
+    def __init__(self, weight=0, value=0, damage=1, damType='crushing', runeList=[]):
+        Weapon.__init__(self, weight, value, damage, damType)
+
+        self.runes = runeList
+
 
 class Armor(Equipment):
 
@@ -45,3 +52,10 @@ class Armor(Equipment):
         self.piercRes = piercRes
         self.slashRes = slashRes
         self.bodyLoc = bodyLoc#this is which part of the body the armor can be equiped on
+
+class Shield(Armor):
+
+    def __init__(self, weight=0, value=0, armor=1, crushRes=0, piercRes=0, slashRes=0, bodyLoc='shield', evadeBonus=0):
+        Armor.__init__(self, weight, value, armor, crushRes, piercRes, slashRes, bodyLoc)
+
+        self.evadeBonus = evadeBonus
