@@ -1,0 +1,49 @@
+The biggest goal of this game is to prototype spellcrafting by summoning runes.
+
+Every creature has a RUNE PALLETE, which is essentially a list of RUNES the creature is currently channeling. Creatures can SUMMON different RUNES on each of their
+turns. They can then CAST the RUNES on their RUNE PALLETE, once the pallete is CAST it creates a spell. The spells power is determined by whatever RUNES were on the 
+pallete.
+
+********************************************************************RUNES**********************************************************************
+
+There are several types of runes.
+
+AUGMENT RUNE - These runes augment the elements of the other runes on your pallete. Alone they are useless, but used in combination with combat, support, or shielding
+               runes, they can greatly increase the power of the spell.
+
+COMBAT RUNE - These runes are the most commonly cast runes. They are mostly used to cause damage, though their high element attunements can be used along with support,
+              curse or shielding runes to create powerful support spells.
+
+SUPPORT RUNE - These runes are used to modify the creature's stats. Whether it is a healing rune, or a rune that causes the creature to grow stronger.
+
+CURSE RUNE - These runes are used to cause debilitating effects on a target. They can cause slowness, drain health, or even prevent the target from summoning runes and
+             casting spells.
+
+SHIELDING RUNE - These runes either greatly increase the targets resistance against a certain damage type, or eliminate it entirely for a short duration.
+
+NOTE** The different types of runes will overide other types of runes. 
+
+Shielding runes overide any other kind of rune. Once a shielding rune is in the pallete, the spell that is cast will be a shield of sorts.
+
+Curse runes overide any rune other than shielding runes.
+
+Support runes overide combat runes.
+
+Combat runes are very basic in nature, therefor they do not overide any of the other types.
+
+There can never only be augmenting runes in a spell, augment runes are always overiden.
+
+
+******************************************************************ATTUNEMENT*********************************************************************
+
+Every rune is attuned to certain bodily attributes, and can have 1 or more elements it is attuned to.
+
+When a rune is attuned to the different attributes, those attributes determin the strength of a spell. So a rune with a high Intelligence Attunement will benefit more
+from the creature's (or player's) Intelligence attribute.
+
+Most runes are aligned to one more more elements. These elements can change the effects of the final spell once the runes are cast. If you are casting a combat spell
+and it has a high Fire Attunement, the creature will cast some sort of fire spell. Remember, each creature has different resistances to different damage types, so you
+may need to use different elements against different creatures. 
+
+***Eventually certain elements can be combined to create new "Sub-Elements". Something like electricity can be created by combining Fire runes with Wind runes.
+

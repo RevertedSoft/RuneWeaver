@@ -22,5 +22,22 @@
 
 class Rune():
 
-    def __init__(self):
-        pass
+    def __init__(self, power=0, strAttune=0, conAttune=0, dexAttune=0, agiAttune=0, intAttune=0, wisAttune=0):
+        self.power = power #this determines how powerful this rune is. Affects the damage it may deal, how much it may heal, or how strong a shield it will produce.
+        self.strAttune = strAttune #these attunement values determine how much their associated attribute affects the strenght of the spell
+        self.conAttune = conAttune
+        self.dexAttune = dexAttune
+        self.agiAttune = agiAttune
+        self.intAttune = intAttune
+        self.wisAttune = wisAttune
+
+class SupportRune(Rune):
+    '''These runes, when added to a spell in the pallete, affect the strength of a spell indirectly.'''
+    def __init__(self, power=0, shadowAug=0, lightAug=0, fireAug=0, waterAug=0, windAug=0, earthAug=0):
+        Rune.__init__(self, power)
+        self.shadowAug = shadowAug #these augment values determine how much a spells elements are augmented
+        self.lightAug = lightAug
+        self.fireAug = fireAug
+        self.waterAug = waterAug
+        self.windAug = windAug
+        self.earthAug = earthAug
