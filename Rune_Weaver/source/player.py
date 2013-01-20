@@ -23,9 +23,9 @@ from . creature import Humanoid
 
 class Player(Humanoid):
 
-    def __init__(self):
+    def __init__(self, name='Player', positionX, positionY):
 
-        Humanoid.__init__(self)
+        Humanoid.__init__(self, name, positionX, positionY)
 
         self.level = 1
 
@@ -33,7 +33,7 @@ class Player(Humanoid):
         self.experience += experience
 
     def checkLevelUp(self):
-        if self.experience == self.level * self.level * 100:
+        if self.experience == (self.level * self.level) * 100:
             return True
         else:
             return False
