@@ -22,7 +22,7 @@
 
 class Rune():
     '''attributes go in order of str, con, dex, agi, int and wis.
-Elements go in order of sha, lig, fir, wat, win, ear.'''
+Elements go in order of shadow, light, fire, water, wind, earth.'''
     
     def __init__(self, power=0, attriList, elemeList, priority='augment'):#attriList is the list of attributes the rune is affected by. elemeList is the base elements of the rune.
         self.power = power #this determines how powerful this rune is. Affects the damage it may deal, how much it may heal, or how strong a shield it will produce.
@@ -52,24 +52,75 @@ Augment elements go in order of shadow light fire water wind earth'''
         self.windAug = augList[4]
         self.earthAug = augList[5]
 
-def findPriority(runeList):
-    priority = 'augment'
-    for runes in runeList:
-        if runes.priority == 'shielding':
-            priority = 'shielding'
-            return priority
-        if runes.priority == 'curse':
-            priority = 'curse'
-        if runes.priority = 'support' and priority not 'curse':
-            priority = 'support'
-        if runes.priority = 'combat' and (priority not 'support' or priority not 'curse'):
-            priority = 'combat'
 
-    return priority
+class Spell():
 
-def castRunes(runeList, caster):
-    '''This method is used when a creature is casting a spell.'''
-    findPriority(runeList)#used to determine the type of spell being cast
+    def __init__(self, runeList, caster):
+        self.runeList = runeList
+        self.caster = caster #the creature casting the spell
+
+        self.castRunes()
+
+        
+    def findPriority(self):
+        self.priority = 'augment'
+        for runes in self.runeList:
+            if runes.priority == 'shielding':
+                self.priority = 'shielding'
+                return
+            if runes.priority == 'curse':
+                self.priority = 'curse'
+            if runes.priority == 'support' and self.priority not 'curse':
+                self.priority = 'support'
+            if runes.priority == 'combat' and (self.priority not 'support' or self.priority not 'curse'):
+                self.priority = 'combat'
+
+    def calcAttunement(self):
+        '''This method calculates the most prominent element in the spell. This method will also be used to combine certain elements later.'''
+        for runes in self.runeList:
+            self.strAttune += runes.strAttune
+            self.conAttune += runes.conAttune
+            self.dexAttune += runes.dexAttune
+            self.agiAttune += runes.agiAttune
+            self.intAttune += runes.intAttune
+            
+            self.shaAttune += runes.shaAttune
+            self.ligAttune += runes.ligAttune
+            self.firAttune += runes.firAttune
+            self.watAttune += runes.watAttune
+            self.winAttune += runes.winAttune
+            self.earAttune += runes.earAttune
+
+    def augAttunement(self):
+
+        for runes in self.runeList:
+            if runes.priority == 'augment':
+                self.shaAttune += self.shaAttune * runes.shadowAug
+                self.ligAttune += self.shaAttune * runes.lightAug
+                self.firAttune += self.shaAttune * runes.fireAug
+                self.watAttune += self.shaAttune * runes.waterAug
+                self.winAttune += self.shaAttune * runes.windAug
+                self.earAttune += self.shaAttune * runes.earthAug
+
+    def calcRange(self):
+        
+        self.range = 3
+
+        self.range += self.ligAttune//2
+        self.range += self.winAttune//2
+        self.range -= self.watAttune//3
+        self.range -= self.earAttune//3
+
+        
+
+    def castRunes(self):
+        '''This method is used when a creature is casting a spell.'''
+        self.spellType = self.findPriority() #used to determine the type of spell being cast
+        self.calcAttunement() #calculate the attunement values of the spell
+        self.augAttunement() #augment the attunements if there are any augment runes
+        self.calcRange() #calculate the range of the spell
+        self.spellTarget = self.caster.target #determines what creature the spell will effect
+    
     
 
 
