@@ -76,7 +76,7 @@ class Spell():
                 self.priority = 'combat'
 
     def calcAttunement(self):
-        '''This method calculates the most prominent element in the spell. This method will also be used to combine certain elements later.'''
+        """This method calculates the most prominent element in the spell. This method will also be used to combine certain elements later."""
         for runes in self.runeList:
             self.strAttune += runes.strAttune
             self.conAttune += runes.conAttune

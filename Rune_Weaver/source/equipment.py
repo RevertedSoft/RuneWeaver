@@ -22,24 +22,39 @@
 
 
 class Equipment():
+    """This class handles all equipment items.
 
+    weight -- defines the weight of an equipment item (default 0)
+    value -- defines the value of an equipment item (default 0)
+
+    """
     def __init__(self, weight=0, value=0):
         self.weight = weight
         self.value = value
 
 
 class Weapon(Equipment):
+    """This subclass of Equipment handles physical weapons.
 
+    damage -- is the damage of the weapon (default 1)
+    damType -- is the type of damage a weapon deals (default 'crushing')
+    attRange -- is the attack range of the weapon (default 1)
+
+    """
     def __init__(self, weight=0, value=0, damage=1, damType='crushing', attRange=1):
         Equipment.__init__(self, weight, value)
 
         self.damage = damage
         self.damType = damType
-        self.attRange = attRange  # The attack range of the weapon
+        self.attRange = attRange
 
 
 class MagicWeapon(Weapon):
+    """This subclass of Weapon handles magical weapons.
 
+    runes -- list of runes available (default [])
+
+    """
     def __init__(self, weight=0, value=0, damage=1, damType='crushing', attRange=1, runeList=[]):
         Weapon.__init__(self, weight, value, damage, damType, attRange)
 
@@ -47,7 +62,15 @@ class MagicWeapon(Weapon):
 
 
 class Armor(Equipment):
+    """This subclass of Equipment handles armors.
 
+    armor -- is the armor value of an armor piece (default 1)
+    crushRes -- is the crush resistance for the damage type crushing
+    pierceRes -- is the pierce resistance for the damage type piercing
+    slashRes -- is the slash resistance for the damage type slashing
+    bodyLoc -- defines which body part can wear the armor (default torso)
+
+    """
     def __init__(self, weight=0, value=0, armor=1, crushRes=0, piercRes=0, slashRes=0, bodyLoc='torso'):
         Equipment.__init__(self, weight, value)
 
@@ -55,11 +78,15 @@ class Armor(Equipment):
         self.crushRes = crushRes
         self.piercRes = piercRes
         self.slashRes = slashRes
-        self.bodyLoc = bodyLoc  # this is which part of the body the armor can be equiped on
+        self.bodyLoc = bodyLoc
 
 
 class Shield(Armor):
+    """This subclass of Armor handles all shields.
 
+    evadeBonus -- defins an evade bonus for the wearer (default 0)
+
+    """
     def __init__(self, weight=0, value=0, armor=1, crushRes=0, piercRes=0, slashRes=0, bodyLoc='shield', evadeBonus=0):
         Armor.__init__(self, weight, value, armor, crushRes, piercRes, slashRes, bodyLoc)
 
