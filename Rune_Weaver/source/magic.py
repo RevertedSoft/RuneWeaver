@@ -89,6 +89,7 @@ class Spell():
         self.castRunes()
 
     def findPriority(self):
+        """This method finds out which priority to use for spellcasting. """
         self.priority = 'augment'
         for runes in self.runeList:
             if runes.priority == 'shielding':
@@ -96,7 +97,7 @@ class Spell():
                 return  # nothing returned?
             if runes.priority == 'curse':
                 self.priority = 'curse'
-            if runes.priority == 'support' and self.priority not 'curse': # not give me a syntax error here... it think because 'not' compares two objects, but we only have one here so '!=' might be the correct operator.
+            if runes.priority == 'support' and self.priority not 'curse': # 'not' gives me a syntax error here... i think because 'not' compares two objects, but we only have one here so '!=' might be the correct operator.
                 self.priority = 'support'
             if runes.priority == 'combat' and (self.priority not 'support' or self.priority not 'curse'):
                 self.priority = 'combat'
@@ -104,12 +105,13 @@ class Spell():
     def calcAttunement(self):
         """This method calculates the most prominent element in the spell. This method will also be used to combine certain elements later."""
         for runes in self.runeList:
+            #attribute attunements
             self.strAttune += runes.strAttune
             self.conAttune += runes.conAttune
             self.dexAttune += runes.dexAttune
             self.agiAttune += runes.agiAttune
             self.intAttune += runes.intAttune
-
+            #element attunements
             self.shaAttune += runes.shaAttune
             self.ligAttune += runes.ligAttune
             self.firAttune += runes.firAttune
@@ -118,7 +120,7 @@ class Spell():
             self.earAttune += runes.earAttune
 
     def augAttunement(self):
-
+        """This method augments the elemental attunements. """
         for runes in self.runeList:
             if runes.priority == 'augment':
                 self.shaAttune += self.shaAttune * runes.shadowAug
@@ -129,7 +131,7 @@ class Spell():
                 self.earAttune += self.shaAttune * runes.earthAug
 
     def calcRange(self):
-
+        """This method calculates the casting range of the spell. """
         self.range = 3
 
         self.range += self.ligAttune // 2
@@ -141,7 +143,7 @@ class Spell():
         """This method is used when a creature is casting a spell.
 
         It will first determine the type of the spell and then calculate its
-        attunements and augements them. After that the casting range is
+        attunement and augements them. After that the casting range is
         calculated and cast upon the caster's target.
 
         """

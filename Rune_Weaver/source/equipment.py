@@ -66,7 +66,7 @@ class Armor(Equipment):
 
     armor -- is the armor value of an armor piece (default 1)
     crushRes -- is the crush resistance for the damage type crushing
-    pierceRes -- is the pierce resistance for the damage type piercing
+    piercRes -- is the pierce resistance for the damage type piercing
     slashRes -- is the slash resistance for the damage type slashing
     bodyLoc -- defines which body part can wear the armor (default torso)
 
