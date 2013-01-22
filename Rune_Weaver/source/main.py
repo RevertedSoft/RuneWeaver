@@ -24,7 +24,7 @@ import curses
 
 from . import creature, equipment, player
 from .globs import *
-from .world import World
+from .world import *
 
 def main():
     #setup curses mode
@@ -32,6 +32,7 @@ def main():
     curses.noecho()
     curses.cbreak()
 
+    playerOne = player.Player('some name', 5, 5);
     mainWorld = World(20, 20)
     mainWorld.printBoard(display)
 
