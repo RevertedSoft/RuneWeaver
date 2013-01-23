@@ -18,6 +18,8 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #SOFTWARE.
 
+import os
+
 """This module contains the rune class."""
 
 
@@ -156,3 +158,58 @@ class Spell():
         self.augAttunement()
         self.calcRange()
         self.spellTarget = self.caster.target
+
+
+
+''' The following are functions for making lists of rune objects. '''
+def getRunes(directory, file):
+    runeList = []
+    
+    i = 0
+    # read the rune text file in the resource directory
+    print('Reading rune files.')
+    readFile = open(os.path.join(directory,file), "rt")
+    while True:
+        readLine = readFile.readline()
+        if not readLine:
+            break
+        if '//' in readLine:
+            continue
+        readLine = readLine[:-1]
+        strAtt, conAtt, dexAtt, agiAtt, intAtt, wisAtt, shaAtt, ligAtt, firAtt, watAtt, winAtt, earAtt, name, sign, power, priority  = readLine.split(",")#TODO need to account for any spaces before the name and sign in the text doc
+        newRune = Rune( [strAtt, conAtt, dexAtt, agiAtt, intAtt, wisAtt] , [shaAtt, ligAtt, firAtt, watAtt, winAtt, earAtt] ,name, sign, power, priority)
+
+        runeList.append(newRune)
+
+        i += 1
+
+    readFile.close
+        
+
+    return runeList
+
+def getAugRunes(directory, file):
+    runeList = []
+    
+    i = 0
+    # read the rune text file in the resource directory
+    print('Reading rune files.')
+    readFile = open(os.path.join(directory,file), "rt")
+    while True:
+        readLine = readFile.readline()
+        if not readLine:
+            break
+        if '//' in readLine:
+            continue
+        readLine = readLine[:-1]
+        name, sign, shaAug, ligAug, firAug, watAug, winAug, earAug  = readLine.split(",")#TODO need to account for any spaces before the name and sign in the text doc
+        newRune = AugmentRune( name, sign , [shaAug, ligAug, firAug, watAug, winAug, earAug] )
+
+        runeList.append(newRune)
+
+        i += 1
+
+    readFile.close
+        
+
+    return runeList
