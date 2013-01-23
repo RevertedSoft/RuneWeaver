@@ -58,8 +58,8 @@ class AugmentRune(Rune):
     augment -- determines how much a spells elements are augmented
 
     """
-    def __init__(self, power=0, augList):
-        Rune.__init__(self, power, [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0])
+    def __init__(self, augList):
+        Rune.__init__(self, [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0])
         self.shadowAug = augList[0]
         self.lightAug = augList[1]
         self.fireAug = augList[2]
@@ -99,7 +99,7 @@ class Spell():
                 self.priority = 'curse'
             if runes.priority == 'support' and self.priority != 'curse': # thanks
                 self.priority = 'support'
-            if runes.priority == 'combat' and (self.priority not 'support' or self.priority != 'curse'):
+            if runes.priority == 'combat' and (self.priority != 'support' or self.priority != 'curse'):
                 self.priority = 'combat'
 
     def calcAttunement(self):

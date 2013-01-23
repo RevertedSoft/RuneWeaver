@@ -22,7 +22,7 @@
 
 import pygame
 from pygame.locals import *
-from . import pygcurse, creature, equipment
+from . import pygcurse, creature, equipment, player, magic
 from .globs import *
 from .world import *
 

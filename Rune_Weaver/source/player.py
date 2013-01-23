@@ -19,12 +19,12 @@
 #SOFTWARE.
 
 """ This module contains everything related to the player."""
-from . creature import Humanoid
+from . creature import *
 
 
 class Player(Humanoid):
 
-    def __init__(self, name='Player', positionX, positionY):
+    def __init__(self, name, positionX, positionY):
 
         Humanoid.__init__(self, name, positionX, positionY)
 
