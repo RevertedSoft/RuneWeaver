@@ -41,6 +41,8 @@ def main():
         print(runes.name, runes.sign)
     for runes in AUGMENTRUNELIST:
         print(runes.name, runes.sign)
+    for weapons in WEAPONLIST:
+        print(weapons.name, weapons.damType)
     x = 20
     y = 5
 
