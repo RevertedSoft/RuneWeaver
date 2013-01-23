@@ -37,6 +37,10 @@ def exitGame():
     sys.exit()
 
 def main():
+    for runes in COMBATRUNELIST:
+        print(runes.name, runes.sign)
+    for runes in AUGMENTRUNELIST:
+        print(runes.name, runes.sign)
     x = 20
     y = 5
 

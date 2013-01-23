@@ -1,0 +1,4 @@
+//augment runes are constructed with the following attributes
+//name, sign, shaAug, ligAug, firAug, watAug, winAug, earAug
+//all augments must be floating point numbers, name and sign must be strings
+testAug,y, 0, 0, 0, 0, 0, 0

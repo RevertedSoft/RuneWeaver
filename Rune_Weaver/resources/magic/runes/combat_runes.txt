@@ -1,0 +1,4 @@
+//combat runes are constructed with the following attributes
+//strAtt, conAtt, dexAtt, agiAtt, intAtt, wisAtt, shaAtt, ligAtt, firAtt, watAtt, winAtt, earAtt, name, sign, power, priority
+//all attunements and power must be an integer, priority, name, and sign must be strings
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,Test,t, 1, combat

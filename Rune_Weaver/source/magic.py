@@ -27,14 +27,18 @@ class Rune():
 
     power -- describes how powerful a rune is (default 0)
     priority -- is used alongside the rest of the runes on a pallete to determine what kind of spell will be cast (default 'augment')
+    name -- the name that the rune is reffered to
+    sign -- the sign that is used for the rune, usually a single lowercase or uppercase letter
     attune -- determine how much their associated attribute affects the strength of the spell
     elemeList -- is the base elements of the rune
     attriList -- is the list of attributes the rune is affected by
 
     """
-    def __init__(self, attriList, elemeList, power=0, priority='augment'):
+    def __init__(self, attriList, elemeList, name, sign, power=0, priority='augment'):
         self.power = power
         self.priority = priority
+        self.name = name
+        self.sign = sign
         #attribute attunements
         self.strAttune = attriList[0]
         self.conAttune = attriList[1]
@@ -58,8 +62,8 @@ class AugmentRune(Rune):
     augment -- determines how much a spells elements are augmented
 
     """
-    def __init__(self, augList):
-        Rune.__init__(self, [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0])
+    def __init__(self, name, sign, augList):
+        Rune.__init__(self, [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], name, sign)
         self.shadowAug = augList[0]
         self.lightAug = augList[1]
         self.fireAug = augList[2]
