@@ -20,27 +20,64 @@
 
 """ This module holds the main method."""
 
-import curses
-
-from . import creature, equipment, player
+import pygame
+from pygame.locals import *
+from . import pygcurse, creature, equipment
 from .globs import *
 from .world import *
 
+BLUE = (0, 0, 128)
+YELLOW = (255, 255, 0)
+GREEN = (0, 255, 0)
+BLACK = (0,0,0)
+RED = (255,0,0)
+
+def exitGame():
+    pygame.quit()
+    sys.exit()
 
 def main():
-    #setup curses mode
-    display = curses.initscr()
-    curses.noecho()
-    curses.cbreak()
+    x = 20
+    y = 5
 
-    playerOne = player.Player('some name', 5, 5);
-    mainWorld = World(20, 20)
-    mainWorld.printBoard(display)
+    dungeon = []
+    floor = 0
 
-    display.refresh()
-    display.getch()
+    win = pygcurse.PygcurseWindow(40, 40, 'dungeons')
+    win.autowindowupdate = False
+    win.autoupdate = False
 
-    #end curses mode
-    curses.nocbreak(); curses.echo()
-    curses.endwin()
+    dungeon.append(World(40, 40))
+    
+    while True:
+        dungeon[floor].printWorld(win, x, y, RED, BLACK)
+        win.update()
+        
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                exitGame()
+
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    exitGame()
+
+                elif event.key == K_UP:
+                    if dungeon[floor].getTile(x, y -1) != '#':
+                        y -= 1
+                        print('UP')
+
+                elif event.key == K_DOWN:
+                    if dungeon[floor].getTile(x, y +1) != '#':
+                        y += 1
+                        print('DOWN')
+
+                elif event.key == K_LEFT:
+                    if dungeon[floor].getTile(x -1, y) != '#':
+                        x -= 1
+                        print('LEFT')
+
+                elif event.key == K_RIGHT:
+                    if dungeon[floor].getTile(x +1, y) != '#':
+                        x += 1
+                        print('RIGHT')
     pass

@@ -18,12 +18,33 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #SOFTWARE.
 
+import random
 from .board import Board
 
 
 class World(Board):
     def __init__(self, rows, cols):
         Board.__init__(Board, rows, cols)
+        self.generateWorld()
 
-    def generateMainWorld(self):
-        pass  # TODO
+    def generateWorld(self):
+        for row in range(len(self.board)):
+            for col in range(len(self.board[0])):
+                self.board[row][col] = ' '
+                
+        for row in range(len(self.board)):
+            for col in range(len(self.board[0])):
+                if row == 0 or row == len(self.board) -1 or col == 0 or col == len(self.board[0]) -1:
+                    self.board[row][col] = '#'
+
+                elif random.random() < 0.35:
+                    self.board[row][col] = '#'
+
+    def printWorld(self, screen, x, y, forground, background):
+        for row in range(len(self.board)):
+            for col in range(len(self.board[0])):
+                if row == x and col == y:
+                    screen.putchar('@', x, y, forground, background)
+
+                else:
+                    screen.putchar(self.board[row][col], row, col)
