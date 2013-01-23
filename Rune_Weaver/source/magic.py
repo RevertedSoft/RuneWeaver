@@ -78,7 +78,7 @@ class Spell():
     methods:
         findPriority -- is used to find the augmentation
         calcAttunement -- calculates the most prominent element in the spell
-        augAttunement --
+        augAttunement -- augments the elemental values of the spell using the attributes from augment runes
         calcRange -- calculates casting range
         castRunes -- handles the complete casting of a rune
 
@@ -94,12 +94,12 @@ class Spell():
         for runes in self.runeList:
             if runes.priority == 'shielding':
                 self.priority = 'shielding'
-                return  # nothing returned?
+                return  # this returns instantly since shielding is of highest priority. So when shielding is found, it does not need to check anything else.
             if runes.priority == 'curse':
                 self.priority = 'curse'
-            if runes.priority == 'support' and self.priority not 'curse': # 'not' gives me a syntax error here... i think because 'not' compares two objects, but we only have one here so '!=' might be the correct operator.
+            if runes.priority == 'support' and self.priority != 'curse': # thanks
                 self.priority = 'support'
-            if runes.priority == 'combat' and (self.priority not 'support' or self.priority not 'curse'):
+            if runes.priority == 'combat' and (self.priority not 'support' or self.priority != 'curse'):
                 self.priority = 'combat'
 
     def calcAttunement(self):
