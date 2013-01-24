@@ -22,27 +22,15 @@
 
 import pygame
 from pygame.locals import *
-from . import pygcurse, creature, equipment, player, magic
+from . import pygcurse, creature, equipment
 from .globs import *
 from .world import *
-
-BLUE = (0, 0, 128)
-YELLOW = (255, 255, 0)
-GREEN = (0, 255, 0)
-BLACK = (0,0,0)
-RED = (255,0,0)
 
 def exitGame():
     pygame.quit()
     sys.exit()
 
 def main():
-    for runes in COMBATRUNELIST:
-        print(runes.name, runes.sign)
-    for runes in AUGMENTRUNELIST:
-        print(runes.name, runes.sign)
-    for weapons in WEAPONLIST:
-        print(weapons.name, weapons.damType)
     x = 20
     y = 5
 
