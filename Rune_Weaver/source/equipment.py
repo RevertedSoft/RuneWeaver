@@ -45,7 +45,7 @@ class Weapon(Equipment):
 
     """
     def __init__(self, name, weight=0, value=0, damage=1, damType='crushing', attRange=1):
-        Equipment.__init__(self, weight, value, name)
+        Equipment.__init__(self, name, weight, value)
 
         self.damage = damage
         self.damType = damType

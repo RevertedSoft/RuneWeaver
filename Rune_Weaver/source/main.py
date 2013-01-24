@@ -20,7 +20,7 @@
 
 """ This module holds the main method."""
 
-import pygame
+import pygame, sys
 from pygame.locals import *
 from . import pygcurse, creature, equipment
 from .globs import *
@@ -31,6 +31,8 @@ def exitGame():
     sys.exit()
 
 def main():
+    for runes in COMBATRUNELIST:
+        print(runes.name, runes.sign)
     x = 20
     y = 5
 
