@@ -1,0 +1,4 @@
+//magic weapons are constructed with the following attributes
+//name, weight, value, damage, damage Type, attack range, rune1, rune2, rune3
+//weight, value, damage and attack range must be integers, damage type must be a string that is either crushing, piercing, or slashing, name must be a string
+testWeapon, 0, 0, 0,crushing, 1, 0, 0, 0

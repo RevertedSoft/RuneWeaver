@@ -1,0 +1,4 @@
+//armor is constructed with the following attributes
+//name, weight, value, armor, crushRes, piercRes, slashRes, bodyLoc
+//weight, value, armor crushRes, piercRes, slashRes must be integers, name must be a string, bodyLoc must be a string of either head, shoulder, torso, leg or foot
+testArmor, 0, 0, 0, 1, 1, 1,torso

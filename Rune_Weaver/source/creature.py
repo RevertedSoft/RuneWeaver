@@ -19,6 +19,7 @@
 #SOFTWARE.
 
 """ This module contains the superclass creature, all other monsters and the player, will inherit from this class."""
+from .globs import *
 
 
 class Creature():
@@ -36,7 +37,7 @@ class Creature():
 
         maxHealth -- maximum health of the creature
         currentHealth -- current health of the creature
-        palleteSize --
+        palleteSize -- the maximum number of runes a creature can hold in a spell at any time
         runePallate -- the empty list of runes the creature has summoned
         armor --
         magicRes --
@@ -132,3 +133,9 @@ class Humanoid(Creature):
         self.footArmor = None
         self.weapon = None
         self.shield = None
+
+class Beast(Creature):
+    """This class contains creatures such as wolves, bears, lions, etc."""
+    def __init__(self, name, positionX, positionY):
+        Creature.__init__(self, name, positionX, positionY)
+        #TODO - fill in unique attributes

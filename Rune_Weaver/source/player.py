@@ -20,6 +20,10 @@
 
 """ This module contains everything related to the player."""
 from . creature import *
+import pygame
+from pygame.locals import *
+from .globs import *
+#from .world import *
 
 
 class Player(Humanoid):
@@ -38,3 +42,33 @@ class Player(Humanoid):
             return True
         else:
             return False
+
+    def turn(self):
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                exitGame()
+
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    exitGame()
+
+                elif event.key == K_UP:
+                    if dungeon[floor].getTile(self.positionX, self.positionY -1) != '#':
+                        self.positionY -= 1
+                        print('UP')
+
+                elif event.key == K_DOWN:
+                    if dungeon[floor].getTile(self.positionX, self.positionY +1) != '#':
+                        self.positionY += 1
+                        print('DOWN')
+
+                elif event.key == K_LEFT:
+                    if dungeon[floor].getTile(self.positionX -1, self.positionY) != '#':
+                        self.positionX -= 1
+                        print('LEFT')
+
+                elif event.key == K_RIGHT:
+                    if dungeon[floor].getTile(self.positionX +1, self.positionY) != '#':
+                        self.positionX += 1
+                        print('RIGHT')
+        

@@ -22,58 +22,25 @@
 
 import pygame, sys
 from pygame.locals import *
-from . import pygcurse, creature, equipment
+from . import pygcurse, equipment, player
 from .globs import *
-from .world import *
+
+#create the player variable ###PLACEHOLDER###
+playerChar = player.Player("player",20,5)
 
 def exitGame():
     pygame.quit()
     sys.exit()
 
 def main():
-    for runes in COMBATRUNELIST:
-        print(runes.name, runes.sign)
-    x = 20
-    y = 5
-
-    dungeon = []
-    floor = 0
-
+    #make the pygcurse window
     win = pygcurse.PygcurseWindow(40, 40, 'dungeons')
     win.autowindowupdate = False
     win.autoupdate = False
 
-    dungeon.append(World(40, 40))
-    
     while True:
-        dungeon[floor].printWorld(win, x, y, RED, BLACK)
+        dungeon[floor].printWorld(win, playerChar.positionX, playerChar.positionY, RED, BLACK)
         win.update()
-        
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                exitGame()
+        playerChar.turn()
 
-            elif event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    exitGame()
-
-                elif event.key == K_UP:
-                    if dungeon[floor].getTile(x, y -1) != '#':
-                        y -= 1
-                        print('UP')
-
-                elif event.key == K_DOWN:
-                    if dungeon[floor].getTile(x, y +1) != '#':
-                        y += 1
-                        print('DOWN')
-
-                elif event.key == K_LEFT:
-                    if dungeon[floor].getTile(x -1, y) != '#':
-                        x -= 1
-                        print('LEFT')
-
-                elif event.key == K_RIGHT:
-                    if dungeon[floor].getTile(x +1, y) != '#':
-                        x += 1
-                        print('RIGHT')
     pass

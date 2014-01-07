@@ -1,0 +1,4 @@
+//shields are constructed with the following attributes
+//name, weight, value, armor, crushRes, piercRes, slashRes, bodyLoc, evadebonus
+//weight, value, armor crushRes, piercRes, slashRes, evadebonus must be integers, name must be a string, bodyLoc must be a string "shield"
+testShield, 0, 0, 0, 1, 1, 1,shield, 1

@@ -55,7 +55,7 @@ class Weapon(Equipment):
 class MagicWeapon(Weapon):
     """This subclass of Weapon handles magical weapons.
 
-    runes -- list of runes available (default [])
+    runes -- list of runes available (default []), there are a max of 3 runes on a weapon, if this is passed a 0 there will be no rune in that slot
 
     """
     def __init__(self, name, weight=0, value=0, damage=1, damType='crushing', attRange=1, runeList=[]):
@@ -90,7 +90,7 @@ class Shield(Armor):
     evadeBonus -- defins an evade bonus for the wearer (default 0)
 
     """
-    def __init__(self, weight=0, value=0, armor=1, crushRes=0, piercRes=0, slashRes=0, bodyLoc='shield', evadeBonus=0):
+    def __init__(self, name, weight=0, value=0, armor=1, crushRes=0, piercRes=0, slashRes=0, bodyLoc='shield', evadeBonus=0):
         Armor.__init__(self, name, weight, value, armor, crushRes, piercRes, slashRes, bodyLoc)
 
         self.evadeBonus = evadeBonus
@@ -101,7 +101,7 @@ class Shield(Armor):
 
 
 
-''' These functions read the weapons from a text file specified. '''
+''' These functions read the equipment from a text file specified. '''
 
 def getWeapons(directory, file):
     weaponList = []
@@ -128,3 +128,81 @@ def getWeapons(directory, file):
         
 
     return weaponList
+
+def getMagWeapons(directory, file):
+    magicWeaponList = []
+    
+    i = 0
+    # read the rune text file in the resource directory
+    print('Reading magic weapon files.')
+    readFile = open(os.path.join(directory,file), "rt")
+    while True:
+        readLine = readFile.readline()
+        if not readLine:
+            break
+        if '//' in readLine:
+            continue
+        readLine = readLine[:-1]
+        name, weight, value, damage, damType, attRange, rune1, rune2, rune3  = readLine.split(",")#TODO need to account for any spaces before the name and sign in the text doc
+        newWeapon = MagicWeapon( name, weight, value, damage, damType, attRange, [rune1, rune2, rune3] )
+
+        magicWeaponList.append(newWeapon)
+
+        i += 1
+
+    readFile.close
+        
+
+    return magicWeaponList
+
+def getArmor(directory, file):
+    armorList = []
+    
+    i = 0
+    # read the rune text file in the resource directory
+    print('Reading armor files.')
+    readFile = open(os.path.join(directory,file), "rt")
+    while True:
+        readLine = readFile.readline()
+        if not readLine:
+            break
+        if '//' in readLine:
+            continue
+        readLine = readLine[:-1]
+        name, weight, value, armor, crushRes, piercRes, slashRes, bodyLoc = readLine.split(",")#TODO need to account for any spaces before the name and sign in the text doc
+        newArmor = Armor( name, weight, value, armor, crushRes, piercRes, slashRes, bodyLoc )
+
+        armorList.append(newArmor)
+
+        i += 1
+
+    readFile.close
+        
+
+    return armorList
+
+def getShields(directory, file):
+    shieldList = []
+    
+    i = 0
+    # read the rune text file in the resource directory
+    print('Reading shield files.')
+    readFile = open(os.path.join(directory,file), "rt")
+    while True:
+        readLine = readFile.readline()
+        if not readLine:
+            break
+        if '//' in readLine:
+            continue
+        readLine = readLine[:-1]
+        name, weight, value, armor, crushRes, piercRes, slashRes, bodyLoc, evadeBonus = readLine.split(",")#TODO need to account for any spaces before the name and sign in the text doc
+        newShield = Shield( name, weight, value, armor, crushRes, piercRes, slashRes, bodyLoc, evadeBonus )
+
+        shieldList.append(newShield)
+
+        i += 1
+
+    readFile.close
+        
+
+    return shieldList

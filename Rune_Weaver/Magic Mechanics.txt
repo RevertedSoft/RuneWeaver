@@ -29,7 +29,7 @@ Curse runes overide any rune other than shielding runes.
 
 Support runes overide combat runes.
 
-Combat runes are very basic in nature, therefor they do not overide any of the other types.
+Combat runes are very basic in nature, therefore they do not overide any of the other types.
 
 There can never only be augmenting runes in a spell, augment runes are always overiden.
 

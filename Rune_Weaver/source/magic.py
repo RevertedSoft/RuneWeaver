@@ -101,11 +101,11 @@ class Spell():
             if runes.priority == 'shielding':
                 self.priority = 'shielding'
                 return  # this returns instantly since shielding is of highest priority. So when shielding is found, it does not need to check anything else.
-            if runes.priority == 'curse':
+            elif runes.priority == 'curse':
                 self.priority = 'curse'
-            if runes.priority == 'support' and self.priority != 'curse': # thanks
+            elif runes.priority == 'support' and self.priority != 'curse': # thanks
                 self.priority = 'support'
-            if runes.priority == 'combat' and (self.priority != 'support' or self.priority != 'curse'):
+            elif runes.priority == 'combat' and (self.priority != 'support' or self.priority != 'curse'):
                 self.priority = 'combat'
 
     def calcAttunement(self):
