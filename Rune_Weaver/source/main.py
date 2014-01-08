@@ -22,15 +22,23 @@
 
 import pygame, sys
 from pygame.locals import *
-from . import pygcurse, equipment, player#, creature
+from . import pygcurse, equipment, player, creature
 from .globs import *
 
 #create the player variable ###PLACEHOLDER###
 playerChar = player.Player("player",20,5,'@','red')
 
+#create new creatures ###TODO### TEMPORARY
+
+newCreature1 = creature.Humanoid("goblin", 15,5,'G', "green", experience=10, ai="passive")
+newCreature2 = creature.Humanoid("goblin", 25,5,'G', "green", experience=10, ai="passive")
+newCreature3 = creature.Humanoid("goblin", 15,10,'G', "green", experience=10, ai="passive")
+
 creatureList = []
 creatureList.append(playerChar)
-creatureList.append(newCreature)
+creatureList.append(newCreature1)
+creatureList.append(newCreature2)
+creatureList.append(newCreature3)
 
 def exitGame():
     pygame.quit()
@@ -46,11 +54,12 @@ def main():
 
     while play == True:
         
-        dungeon[floor].printWorld(win, creatureList, BLACK)
+        dungeon.printWorld(win, creatureList, BLACK)
         win.update()
         play = playerChar.turn(creatureList)
         for creatures in creatureList[1:]:
-            creatures.turn(creatureList)
+            ai = creatures.ai(creatures, creatureList, dungeon)
+            ai.behavior()
             if creatures.dead:
                 creatureList.remove(creatures)
         

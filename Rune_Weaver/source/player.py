@@ -76,7 +76,7 @@ class Player(Humanoid):
 
                     elif event.key == K_UP:
                         
-                        if dungeon[floor].getTile(self.positionX, self.positionY -1) != '#':
+                        if dungeon.getTile(self.positionX, self.positionY -1) != '#':
                             
                             if self.proximityList[0] != None:
                                 
@@ -90,7 +90,7 @@ class Player(Humanoid):
                                 noAction = False
 
                     elif event.key == K_DOWN:
-                        if dungeon[floor].getTile(self.positionX, self.positionY +1) != '#':
+                        if dungeon.getTile(self.positionX, self.positionY +1) != '#':
                             
                             if self.proximityList[1] != None:
                                 print('There is a ' + self.proximityList[1].name + ' there.')
@@ -103,7 +103,7 @@ class Player(Humanoid):
                                 noAction = False
 
                     elif event.key == K_LEFT:
-                        if dungeon[floor].getTile(self.positionX -1, self.positionY) != '#':
+                        if dungeon.getTile(self.positionX -1, self.positionY) != '#':
                             if self.proximityList[2] != None:
                                 print('There is a ' + self.proximityList[2].name + ' there.')
                                 self.target = self.proximityList[2]
@@ -115,7 +115,7 @@ class Player(Humanoid):
                                 noAction = False
 
                     elif event.key == K_RIGHT:
-                        if dungeon[floor].getTile(self.positionX +1, self.positionY) != '#':
+                        if dungeon.getTile(self.positionX +1, self.positionY) != '#':
                             if self.proximityList[3] != None:
                                 print('There is a ' + self.proximityList[3].name + ' there.')
                                 self.target = self.proximityList[3]

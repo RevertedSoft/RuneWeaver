@@ -19,12 +19,16 @@
 #SOFTWARE.
 
 """ This module contains the superclass creature, all other monsters and the player, will inherit from this class."""
-#from .globs import *
+import random
+from . import ai
+from .globs import *
 
 colorDict = {'red':(255,0,0),
              'blue':(0,0,255),
              'white':(255,255,255),
              'green':(0,255,0)}
+
+aiDict = {'passive':ai.Passive}
 
 
 class Creature():
@@ -70,7 +74,7 @@ class Creature():
         turn --
 
     """
-    def __init__(self, name, positionX=-1, positionY=-1, symbol = "@", color="red", faction="Neutral", strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0):
+    def __init__(self, name, positionX=-1, positionY=-1, symbol = "@", color="red", faction="Neutral", strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0, ai='passive'):
         """Base constructor method for creatures."""
         self.name = name
         #position of the creature
@@ -112,10 +116,12 @@ class Creature():
         self.isMagicTurn = False
         self.targetList = []
         self.target = None
+        #set up the creatures AI
+        self.ai = aiDict[ai]
 
     def dealDamage(self, target):
         print("attacking")
-        damage = self.damage + self.strength/2
+        damage = self.damage + self.strength//2
         self.target.takeDamage(damage)
         #return damage formula currently just a basic debug formula
 
@@ -145,28 +151,39 @@ class Creature():
                 self.proximityList[3] = creatures
         #print(self.proximityList)
 
-    def behaviour(self, creatureList):
+    def behaviour(self, creatureList):#basic debug AI ###TODO Write seperate scripts
         #if not self.dead:
         for creatures in creatureList[:]:
             if creatures.faction != self.faction:
                 if creatures in self.proximityList:
+                    if self.currentHealth <= 11:
+                        fleeChance = random.randint(0,5)
+                        if fleeChance > 3:
+                            moveDir = random.randint(0, 1)
+                            if moveDir == 0:
+                                self.positionX += random.randint(-1, 1)
+                            elif moveDir == 1:
+                                self.positionY += random.randint(-1, 1)
+                        
+                        
                     self.target = creatures
 
                     self.dealDamage(self.target)
                     
 
-    def turn(self, creatureList):
-        self.checkDeath()
-##        if self.dead:
-##            pass
-        self.checkProximity(creatureList)
-        self.behaviour(creatureList)
+##    def turn(self, creatureList):
+##        self.checkDeath()
+####        if self.dead:
+####            pass
+##        self.checkProximity(creatureList)
+##        self.ai.behavior(self, creatureList, dungeon)
+##        #self.behaviour(creatureList)
 
 
 class Humanoid(Creature):
     """This class contains creatures such as goblins, orcs, dwarves, elves and of course Humans"""
-    def __init__(self, name, positionX, positionY, strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0, headArmor=None, shoulderArmor=None, torsoArmor=None, legArmor=None, footArmor=None, weapon=None, shield=None):
-        Creature.__init__(self, name, positionX, positionY, strength, constitution, dexterity, agility, intelligence, wisdom, experience, gold)
+    def __init__(self, name, positionX, positionY, symbol, color, faction='neutral', strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0, ai='passive', headArmor=None, shoulderArmor=None, torsoArmor=None, legArmor=None, footArmor=None, weapon=None, shield=None):
+        Creature.__init__(self, name, positionX, positionY, symbol, color, faction, strength, constitution, dexterity, agility, intelligence, wisdom, experience, gold, ai)
         self.headArmor = headArmor
         print(headArmor)
         self.shoulderArmor = shoulderArmor
@@ -223,6 +240,6 @@ class Humanoid(Creature):
 
 class Beast(Creature):
     """This class contains creatures such as wolves, bears, lions, etc."""
-    def __init__(self, name, positionX, positionY):
-        Creature.__init__(self, name, positionX, positionY, strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0)
+    def __init__(self, name, positionX, positionY, ai):
+        Creature.__init__(self, name, positionX, positionY, strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0, ai='passive')
         #TODO - fill in unique attributes
