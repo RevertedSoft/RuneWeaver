@@ -40,7 +40,7 @@ class AI():
 
         #now choose a random target
         if len(potentialTargets) > 1:
-            targetCreature = random.randint(0, len(potentialTargets=1))
+            targetCreature = random.randint(0, len(potentialTargets) - 1)
             self.creature.target = potentialTargets[targetCreature]
         elif len(potentialTargets) == 1:
             self.creature.target = potentialTargets[0]
@@ -91,6 +91,18 @@ class Defensive(AI):
 
     def behavior(self):
         self.creature.checkDeath()
+        self.getTarget()
+        self.attackTarget()
+        self.flee()
+
+class Wanderer(AI):
+
+    def __init__(self, creature, creatureList, world):
+        AI.__init__(self, creature, creatureList, world)
+
+    def behavior(self):
+        self.creature.checkDeath()
+        self.wander()
         self.getTarget()
         self.attackTarget()
         self.flee()

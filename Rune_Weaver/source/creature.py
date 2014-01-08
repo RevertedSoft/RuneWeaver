@@ -29,7 +29,8 @@ colorDict = {'red':(255,0,0),
              'green':(0,255,0)}
 
 aiDict = {'passive':ai.Passive,
-          'defensive':ai.Defensive}
+          'defensive':ai.Defensive,
+          'wanderer':ai.Wanderer}
 
 
 class Creature():
@@ -81,6 +82,7 @@ class Creature():
         #position of the creature
         self.positionX = positionX
         self.positionY = positionY
+        #symbol and color that will be used to represent the creature graphically
         self.symbol = symbol
         self.color = colorDict[color]
         #attributes of the creature
@@ -99,7 +101,6 @@ class Creature():
         self.currentHealth = self.maxHealth
         self.palleteSize = (self.intelligence // 3)  # TODO: this is not right
         self.runePallate = []
-        #self.calculateArmor()
         self.magicRes = (self.intelligence // 6) + (self.wisdom // 3)
         self.evasion = self.dexterity//2
         self.speed = 10 + (self.agility//2)
@@ -118,7 +119,8 @@ class Creature():
         self.targetList = []
         self.target = None
         #set up the creatures AI
-        self.ai = aiDict[ai]
+        if ai != None:
+            self.ai = aiDict[ai]
         print(self.name + "'s HP: " + str(self.currentHealth))
 
     def dealDamage(self, target):
@@ -134,7 +136,7 @@ class Creature():
         print(self.name + " is defending")
         self.currentHealth -= int(damage)
         print(self.name + "'s HP: " + str(self.currentHealth))
-        #subtract apply damage after applying armor value, currently a debug formula
+        #subtract applied damage after applying armor value, currently a debug formula
 
     def checkDeath(self):
         if self.currentHealth <= 0:
@@ -151,7 +153,7 @@ class Creature():
                 self.proximityList[2] = creatures
             elif creatures.positionX == self.positionX + 1 and creatures.positionY == self.positionY:
                 self.proximityList[3] = creatures
-        #print(self.proximityList)
+        
 
     def checkWorldCollision(self, world):#checks if the creature is trying to move into a wall###TODO
         pass

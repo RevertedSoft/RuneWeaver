@@ -27,9 +27,10 @@ from .globs import *
 
 class Player(Humanoid):
 
-    def __init__(self, name, positionX, positionY, symbol, color, faction='player'):
+    def __init__(self, name, positionX, positionY, symbol, color, faction, strength, constitution, dexterity, agility, intelligence, wisdom, experience, gold, headArmor=None, shoulderArmor=None, torsoArmor=None, legArmor=None, footArmor=None,weapon=None, shield=None):
 
-        Humanoid.__init__(self, name, positionX, positionY, symbol, color, faction, 7, 10)
+        Humanoid.__init__(self, name, positionX, positionY, symbol, color, faction, strength,constitution, dexterity, agility, intelligence, wisdom, experience, gold, None, headArmor, shoulderArmor, torsoArmor, legArmor, footArmor, weapon, shield)
+        #equip some armor, only temprorary
         self.headArmor = ARMORLIST[2]
         self.torsoArmor = ARMORLIST[1]
         self.legArmor = ARMORLIST[3]
@@ -61,8 +62,9 @@ class Player(Humanoid):
             #check if the player is dead
             self.checkDeath()
             if self.dead:
+                print("You have died...")
                 return False
-            #print(self.experience)
+
             #check for any creatures within proximity of the player
             self.checkProximity(creatureList)
             
@@ -74,7 +76,7 @@ class Player(Humanoid):
                     if event.key == K_ESCAPE:
                         exitGame()
 
-                    elif event.key == K_UP:
+                    elif event.key == K_w or event.key == K_UP:
                         
                         if dungeon.getTile(self.positionX, self.positionY -1) != '#':
                             
@@ -89,7 +91,7 @@ class Player(Humanoid):
                                 print('UP')
                                 noAction = False
 
-                    elif event.key == K_DOWN:
+                    elif event.key == K_s or event.key == K_DOWN:
                         if dungeon.getTile(self.positionX, self.positionY +1) != '#':
                             
                             if self.proximityList[1] != None:
@@ -102,7 +104,7 @@ class Player(Humanoid):
                                 print('DOWN')
                                 noAction = False
 
-                    elif event.key == K_LEFT:
+                    elif event.key == K_a or event.key == K_LEFT:
                         if dungeon.getTile(self.positionX -1, self.positionY) != '#':
                             if self.proximityList[2] != None:
                                 print('There is a ' + self.proximityList[2].name + ' there.')
@@ -114,7 +116,7 @@ class Player(Humanoid):
                                 print('LEFT')
                                 noAction = False
 
-                    elif event.key == K_RIGHT:
+                    elif event.key == K_d or event.key == K_RIGHT:
                         if dungeon.getTile(self.positionX +1, self.positionY) != '#':
                             if self.proximityList[3] != None:
                                 print('There is a ' + self.proximityList[3].name + ' there.')
@@ -125,6 +127,6 @@ class Player(Humanoid):
                                 self.positionX += 1
                                 print('RIGHT')
                                 noAction = False
-        #print(self.currentHealth)
+
         return True
         

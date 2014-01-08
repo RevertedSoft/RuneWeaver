@@ -26,14 +26,15 @@ from . import pygcurse, equipment, player, creature
 from .globs import *
 
 #create the player variable ###PLACEHOLDER###
-playerChar = player.Player("player",20,5,'@','red')
+playerChar = player.Player("player",20,5,'@','red',factionDict['player'],10,10,10,10,10,10,0,50)
 
 #create new creatures ###TODO### TEMPORARY
 
-newCreature1 = creature.Humanoid("goblin", 15,5,'G', "green", experience=10, ai="passive")
-newCreature2 = creature.Humanoid("goblin", 25,5,'G', "green", experience=10, ai="defensive")
-newCreature3 = creature.Humanoid("goblin", 15,10,'G', "green", experience=10, ai="defensive")
-newCreature4 = creature.Humanoid("Orc", 25,12,'O', "blue", strength=12, constitution=12, ai="defensive")
+newCreature1 = creature.Humanoid("goblin", 15,5,'G', "green", experience=10, ai="passive", faction=factionDict["goblins"])
+newCreature2 = creature.Humanoid("goblin", 25,5,'G', "green", experience=10, ai="defensive", faction=factionDict["goblins"])
+newCreature3 = creature.Humanoid("goblin", 15,10,'G', "green", experience=10, ai="defensive", faction=factionDict["goblins"])
+newCreature4 = creature.Humanoid("Orc", 15,12,'O', "blue", strength=12, constitution=12, faction=factionDict["monsters"], ai="wanderer", weapon = WEAPONLIST[1])
+newCreature5 = creature.Humanoid("Hobgoblin", 16,12,'H', "green", strength=17, constitution=15, faction=factionDict["goblins"], ai="wanderer", weapon = WEAPONLIST[1], torsoArmor=ARMORLIST[1])
 
 creatureList = []
 creatureList.append(playerChar)
@@ -41,6 +42,7 @@ creatureList.append(newCreature1)
 creatureList.append(newCreature2)
 creatureList.append(newCreature3)
 creatureList.append(newCreature4)
+creatureList.append(newCreature5)
 
 def exitGame():
     pygame.quit()
