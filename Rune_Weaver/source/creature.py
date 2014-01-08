@@ -169,15 +169,6 @@ class Creature():
                     self.target = creatures
 
                     self.dealDamage(self.target)
-                    
-
-##    def turn(self, creatureList):
-##        self.checkDeath()
-####        if self.dead:
-####            pass
-##        self.checkProximity(creatureList)
-##        self.ai.behavior(self, creatureList, dungeon)
-##        #self.behaviour(creatureList)
 
 
 class Humanoid(Creature):
@@ -234,9 +225,7 @@ class Humanoid(Creature):
         if self.shield != None:
             equipArmor += int(self.shield.armor)
         self.armor += (equipArmor / 5)#find the average armor value of the equipment, the shield counts as bonus and will add to armor value
-        
-##    def checkProximity(self, creatureList):
-##        Creature.checkProximity(self, creatureList)
+
 
 class Beast(Creature):
     """This class contains creatures such as wolves, bears, lions, etc."""
