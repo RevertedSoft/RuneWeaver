@@ -19,7 +19,12 @@
 #SOFTWARE.
 
 """ This module contains the superclass creature, all other monsters and the player, will inherit from this class."""
-from .globs import *
+#from .globs import *
+
+colorDict = {'red':(255,0,0),
+             'blue':(0,0,255),
+             'white':(255,255,255),
+             'green':(0,255,0)}
 
 
 class Creature():
@@ -65,12 +70,14 @@ class Creature():
         turn --
 
     """
-    def __init__(self, name, positionX, positionY, strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0):
+    def __init__(self, name, positionX=-1, positionY=-1, symbol = "@", color="red", strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0):
         """Base constructor method for creatures."""
         self.name = name
         #position of the creature
         self.positionX = positionX
         self.positionY = positionY
+        self.symbol = symbol
+        self.color = colorDict[color]
         #attributes of the creature
         self.strength = strength
         self.constitution = constitution
@@ -104,38 +111,53 @@ class Creature():
         self.targetList = []
         self.target = None
 
-        def dealDamage(self):
+    def dealDamage(self):
+        pass
+        #return damage formula
+
+    def takeDamage(self, damage):
+        pass
+        #subtract apply damage after applying armor value
+
+    def checkDeath(self):
+        if self.currentHealth <= 0:
+            self.dead = True
+
+    def turn(self):
+        self.checkDeath
+        if self.dead:
             pass
-            #return damage formula
 
-        def takeDamage(self, damage):
-            pass
-            #subtract apply damage after applying armor value
-
-        def checkDeath(self):
-            if self.currentHealth <= 0:
-                self.dead = True
-
-        def turn(self):
-            self.checkDeath
-            if self.dead:
-                pass
+    def checkProximity(self, creatureList):#checks if the player is within 1 sqaure of another monster, used during moving or to target melee attacks
+        self.proximityList = [None, None, None, None]
+        for creatures in creatureList[:]:
+            if creatures.positionX == self.positionX and creatures.positionY == self.positionY - 1:
+                self.proximityList[0] = creatures
+            elif creatures.positionX == self.positionX and creatures.positionY == self.positionY + 1:
+                self.proximityList[1] = creatures
+            elif creatures.positionX == self.positionX - 1 and creatures.positionY == self.positionY:
+                self.proximityList[2] = creatures
+            elif creatures.positionX == self.positionX + 1 and creatures.positionY == self.positionY:
+                self.proximityList[3] = creatures
 
 
 class Humanoid(Creature):
     """This class contains creatures such as goblins, orcs, dwarves, elves and of course Humans"""
-    def __init__(self, name, positionX, positionY):
-        Creature.__init__(self, name, positionX, positionY)
-        self.headArmor = None
-        self.shoulderArmor = None
-        self.torsoArmor = None
-        self.legArmor = None
-        self.footArmor = None
-        self.weapon = None
-        self.shield = None
+    def __init__(self, name, positionX, positionY, strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0, headArmor=None, shoulderArmor=None, torsoArmor=None, legArmor=None, footArmor=None, weapon=None, shield=None):
+        Creature.__init__(self, name, positionX, positionY, strength, constitution, dexterity, agility, intelligence, wisdom, experience, gold)
+        self.headArmor = headArmor
+        self.shoulderArmor = shoulderArmor
+        self.torsoArmor = torsoArmor
+        self.legArmor = legArmor
+        self.footArmor = footArmor
+        self.weapon = weapon
+        self.shield = shield
+
+##    def checkProximity(self, creatureList):
+##        Creature.checkProximity(self, creatureList)
 
 class Beast(Creature):
     """This class contains creatures such as wolves, bears, lions, etc."""
     def __init__(self, name, positionX, positionY):
-        Creature.__init__(self, name, positionX, positionY)
+        Creature.__init__(self, name, positionX, positionY, strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0)
         #TODO - fill in unique attributes

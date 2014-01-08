@@ -96,11 +96,6 @@ class Shield(Armor):
         self.evadeBonus = evadeBonus
 
 
-
-
-
-
-
 ''' These functions read the equipment from a text file specified. '''
 
 def getWeapons(directory, file):

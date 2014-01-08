@@ -1,4 +1,4 @@
-from . import magic, equipment
+from . import magic, equipment, creature
 from .world import *
 import os, pygame
 from pygame.locals import *
@@ -17,10 +17,14 @@ YELLOW = (255, 255, 0)
 GREEN = (0, 255, 0)
 BLACK = (0,0,0)
 RED = (255,0,0)
+WHITE = (255,255,255)
 
 #create global world variables from World object
 dungeon = []
 floor = 0
 dungeon.append(World(40, 40))
+
+#create new creatures ###TODO### TEMPORARY
+newCreature = creature.Humanoid("goblin", 15,20,'G', "green")
 
 

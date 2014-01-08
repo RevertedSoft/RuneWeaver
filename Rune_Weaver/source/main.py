@@ -22,11 +22,15 @@
 
 import pygame, sys
 from pygame.locals import *
-from . import pygcurse, equipment, player
+from . import pygcurse, equipment, player#, creature
 from .globs import *
 
 #create the player variable ###PLACEHOLDER###
-playerChar = player.Player("player",20,5)
+playerChar = player.Player("player",20,5,'@','red')
+
+creatureList = []
+creatureList.append(playerChar)
+creatureList.append(newCreature)
 
 def exitGame():
     pygame.quit()
@@ -38,9 +42,13 @@ def main():
     win.autowindowupdate = False
     win.autoupdate = False
 
-    while True:
-        dungeon[floor].printWorld(win, playerChar.positionX, playerChar.positionY, RED, BLACK)
-        win.update()
-        playerChar.turn()
+    play = True
 
-    pass
+    while play == True:
+        
+        dungeon[floor].printWorld(win, creatureList, BLACK)
+        win.update()
+        play = playerChar.turn(creatureList)
+        
+
+    exitGame()

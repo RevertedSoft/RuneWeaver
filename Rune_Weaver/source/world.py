@@ -37,14 +37,14 @@ class World(Board):
                 if row == 0 or row == len(self.board) -1 or col == 0 or col == len(self.board[0]) -1:
                     self.board[row][col] = '#'
 
-                elif random.random() < 0.35:
-                    self.board[row][col] = '#'
+##                elif random.random() < 0.35:
+##                    self.board[row][col] = '#'
 
-    def printWorld(self, screen, x, y, forground, background):
+    def printWorld(self, screen, creatureList, background):
+        
         for row in range(len(self.board)):
             for col in range(len(self.board[0])):
-                if row == x and col == y:
-                    screen.putchar('@', x, y, forground, background)
+                screen.putchar(self.board[row][col], row, col)
 
-                else:
-                    screen.putchar(self.board[row][col], row, col)
+        for creatures in creatureList[:]:
+            screen.putchar(creatures.symbol, creatures.positionX, creatures.positionY, creatures.color, background)
