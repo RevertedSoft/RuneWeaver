@@ -31,14 +31,16 @@ playerChar = player.Player("player",20,5,'@','red')
 #create new creatures ###TODO### TEMPORARY
 
 newCreature1 = creature.Humanoid("goblin", 15,5,'G', "green", experience=10, ai="passive")
-newCreature2 = creature.Humanoid("goblin", 25,5,'G', "green", experience=10, ai="passive")
-newCreature3 = creature.Humanoid("goblin", 15,10,'G', "green", experience=10, ai="passive")
+newCreature2 = creature.Humanoid("goblin", 25,5,'G', "green", experience=10, ai="defensive")
+newCreature3 = creature.Humanoid("goblin", 15,10,'G', "green", experience=10, ai="defensive")
+newCreature4 = creature.Humanoid("Orc", 25,12,'O', "blue", strength=12, constitution=12, ai="defensive")
 
 creatureList = []
 creatureList.append(playerChar)
 creatureList.append(newCreature1)
 creatureList.append(newCreature2)
 creatureList.append(newCreature3)
+creatureList.append(newCreature4)
 
 def exitGame():
     pygame.quit()

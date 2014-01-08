@@ -28,7 +28,8 @@ colorDict = {'red':(255,0,0),
              'white':(255,255,255),
              'green':(0,255,0)}
 
-aiDict = {'passive':ai.Passive}
+aiDict = {'passive':ai.Passive,
+          'defensive':ai.Defensive}
 
 
 class Creature():
@@ -94,7 +95,7 @@ class Creature():
         #creatures faction
         self.faction = faction
         #initialize secondary attributes that are determined from the primary attributes
-        self.maxHealth = 10 + (self.constitution + (self.strength / 2))  # TODO: this is not right
+        self.maxHealth = int(10 + (self.constitution + (self.strength / 2)))  # TODO: this is not right
         self.currentHealth = self.maxHealth
         self.palleteSize = (self.intelligence // 3)  # TODO: this is not right
         self.runePallate = []
@@ -118,20 +119,21 @@ class Creature():
         self.target = None
         #set up the creatures AI
         self.ai = aiDict[ai]
+        print(self.name + "'s HP: " + str(self.currentHealth))
 
     def dealDamage(self, target):
-        print("attacking")
+        print(self.name + " is attacking " + target.name)
         damage = self.damage + self.strength//2
-        self.target.takeDamage(damage)
+        self.target.takeDamage(int(damage))
         #return damage formula currently just a basic debug formula
 
     def takeDamage(self, damage):
         damage = damage - self.armor
         if damage < 1:
             damage = 1
-        print("defending")
-        self.currentHealth -= damage
-        print(self.currentHealth)
+        print(self.name + " is defending")
+        self.currentHealth -= int(damage)
+        print(self.name + "'s HP: " + str(self.currentHealth))
         #subtract apply damage after applying armor value, currently a debug formula
 
     def checkDeath(self):
@@ -151,24 +153,8 @@ class Creature():
                 self.proximityList[3] = creatures
         #print(self.proximityList)
 
-    def behaviour(self, creatureList):#basic debug AI ###TODO Write seperate scripts
-        #if not self.dead:
-        for creatures in creatureList[:]:
-            if creatures.faction != self.faction:
-                if creatures in self.proximityList:
-                    if self.currentHealth <= 11:
-                        fleeChance = random.randint(0,5)
-                        if fleeChance > 3:
-                            moveDir = random.randint(0, 1)
-                            if moveDir == 0:
-                                self.positionX += random.randint(-1, 1)
-                            elif moveDir == 1:
-                                self.positionY += random.randint(-1, 1)
-                        
-                        
-                    self.target = creatures
-
-                    self.dealDamage(self.target)
+    def checkWorldCollision(self, world):#checks if the creature is trying to move into a wall###TODO
+        pass
 
 
 class Humanoid(Creature):
@@ -176,7 +162,7 @@ class Humanoid(Creature):
     def __init__(self, name, positionX, positionY, symbol, color, faction='neutral', strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0, ai='passive', headArmor=None, shoulderArmor=None, torsoArmor=None, legArmor=None, footArmor=None, weapon=None, shield=None):
         Creature.__init__(self, name, positionX, positionY, symbol, color, faction, strength, constitution, dexterity, agility, intelligence, wisdom, experience, gold, ai)
         self.headArmor = headArmor
-        print(headArmor)
+        #print(headArmor)
         self.shoulderArmor = shoulderArmor
         self.torsoArmor = torsoArmor
         self.legArmor = legArmor
@@ -187,9 +173,9 @@ class Humanoid(Creature):
         #self.calculateArmor()
 
     def dealDamage(self, target):
-        print("attacking")
+        print(self.name + " is attacking " + target.name)
         self.calculateDamage()
-        self.target.takeDamage(self.damage)
+        self.target.takeDamage(int(self.damage))
         #return damage formula currently just a basic debug formula
 
     def takeDamage(self, damage):
@@ -197,17 +183,17 @@ class Humanoid(Creature):
         damage -= self.armor
         if damage < 1:
             damage = 1
-        print("defending")
+        print(self.name + " is defending")
         
-        self.currentHealth -= damage
-        print(self.currentHealth)
+        self.currentHealth -= int(damage)
+        print(self.name + "'s HP: " + str(self.currentHealth))
         #subtract apply damage after applying armor value, currently a debug formula
 
     def calculateDamage(self):
         if self.weapon != None:
-            self.damage = self.strength//2 + int(self.weapon.damage)
+            self.damage = int(self.strength//2 + int(self.weapon.damage))
         else:
-            self.damage = 1 + self.strength//2
+            self.damage = int(1 + self.strength//2)
     
     def calculateArmor(self):
         equipArmor = 0
