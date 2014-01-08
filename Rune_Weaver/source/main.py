@@ -49,6 +49,10 @@ def main():
         dungeon[floor].printWorld(win, creatureList, BLACK)
         win.update()
         play = playerChar.turn(creatureList)
+        for creatures in creatureList[1:]:
+            creatures.turn(creatureList)
+            if creatures.dead:
+                creatureList.remove(creatures)
         
 
     exitGame()

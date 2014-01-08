@@ -27,11 +27,19 @@ from .globs import *
 
 class Player(Humanoid):
 
-    def __init__(self, name, positionX, positionY, symbol, color):
+    def __init__(self, name, positionX, positionY, symbol, color, faction='player'):
 
-        Humanoid.__init__(self, name, positionX, positionY, symbol, color)
+        Humanoid.__init__(self, name, positionX, positionY, symbol, color, faction, 7, 10)
+        self.headArmor = ARMORLIST[2]
+        self.torsoArmor = ARMORLIST[1]
+        self.legArmor = ARMORLIST[3]
+        self.footArmor = ARMORLIST[4]
+        self.shoulderArmor = ARMORLIST[5]
+        self.shield = SHIELDLIST[1]
+        self.weapon = WEAPONLIST[1]
 
         self.level = 1
+        
 
     def gainExperience(self, experience):
         self.experience += experience
@@ -54,6 +62,7 @@ class Player(Humanoid):
             self.checkDeath()
             if self.dead:
                 return False
+            #print(self.experience)
             #check for any creatures within proximity of the player
             self.checkProximity(creatureList)
             
@@ -72,6 +81,9 @@ class Player(Humanoid):
                             if self.proximityList[0] != None:
                                 
                                 print('There is a ' + self.proximityList[0].name + ' there.')
+                                self.target = self.proximityList[0]
+                                self.dealDamage(self.target)
+                                noAction = False
                             else:
                                 self.positionY -= 1
                                 print('UP')
@@ -82,6 +94,9 @@ class Player(Humanoid):
                             
                             if self.proximityList[1] != None:
                                 print('There is a ' + self.proximityList[1].name + ' there.')
+                                self.target = self.proximityList[1]
+                                self.dealDamage(self.target)
+                                noAction = False
                             else:
                                 self.positionY += 1
                                 print('DOWN')
@@ -91,6 +106,9 @@ class Player(Humanoid):
                         if dungeon[floor].getTile(self.positionX -1, self.positionY) != '#':
                             if self.proximityList[2] != None:
                                 print('There is a ' + self.proximityList[2].name + ' there.')
+                                self.target = self.proximityList[2]
+                                self.dealDamage(self.target)
+                                noAction = False
                             else:
                                 self.positionX -= 1
                                 print('LEFT')
@@ -100,10 +118,13 @@ class Player(Humanoid):
                         if dungeon[floor].getTile(self.positionX +1, self.positionY) != '#':
                             if self.proximityList[3] != None:
                                 print('There is a ' + self.proximityList[3].name + ' there.')
+                                self.target = self.proximityList[3]
+                                self.dealDamage(self.target)
+                                noAction = False
                             else:
                                 self.positionX += 1
                                 print('RIGHT')
                                 noAction = False
-
+        #print(self.currentHealth)
         return True
         

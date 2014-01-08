@@ -87,7 +87,7 @@ class Armor(Equipment):
 class Shield(Armor):
     """This subclass of Armor handles all shields.
 
-    evadeBonus -- defins an evade bonus for the wearer (default 0)
+    evadeBonus -- defines an evade bonus for the wearer (default 0)
 
     """
     def __init__(self, name, weight=0, value=0, armor=1, crushRes=0, piercRes=0, slashRes=0, bodyLoc='shield', evadeBonus=0):

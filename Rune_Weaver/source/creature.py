@@ -70,7 +70,7 @@ class Creature():
         turn --
 
     """
-    def __init__(self, name, positionX=-1, positionY=-1, symbol = "@", color="red", strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0):
+    def __init__(self, name, positionX=-1, positionY=-1, symbol = "@", color="red", faction="Neutral", strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0):
         """Base constructor method for creatures."""
         self.name = name
         #position of the creature
@@ -87,12 +87,14 @@ class Creature():
         self.wisdom = wisdom
         self.experience = experience
         self.gold = gold
+        #creatures faction
+        self.faction = faction
         #initialize secondary attributes that are determined from the primary attributes
         self.maxHealth = 10 + (self.constitution + (self.strength / 2))  # TODO: this is not right
         self.currentHealth = self.maxHealth
         self.palleteSize = (self.intelligence // 3)  # TODO: this is not right
         self.runePallate = []
-        self.armor = (self.strength // 3) + (self.wisdom // 6)
+        #self.calculateArmor()
         self.magicRes = (self.intelligence // 6) + (self.wisdom // 3)
         self.evasion = self.dexterity//2
         self.speed = 10 + (self.agility//2)
@@ -102,7 +104,7 @@ class Creature():
         self.slashRes = self.constitution//10
         self.damage = 1
         self.attRange = 1
-
+        self.armor = (self.strength // 3) + (self.wisdom // 6)
         self.dead = False
         self.action = 0
         self.magicAction = 0
@@ -111,22 +113,24 @@ class Creature():
         self.targetList = []
         self.target = None
 
-    def dealDamage(self):
-        pass
-        #return damage formula
+    def dealDamage(self, target):
+        print("attacking")
+        damage = self.damage + self.strength/2
+        self.target.takeDamage(damage)
+        #return damage formula currently just a basic debug formula
 
     def takeDamage(self, damage):
-        pass
-        #subtract apply damage after applying armor value
+        damage = damage - self.armor
+        if damage < 1:
+            damage = 1
+        print("defending")
+        self.currentHealth -= damage
+        print(self.currentHealth)
+        #subtract apply damage after applying armor value, currently a debug formula
 
     def checkDeath(self):
         if self.currentHealth <= 0:
             self.dead = True
-
-    def turn(self):
-        self.checkDeath
-        if self.dead:
-            pass
 
     def checkProximity(self, creatureList):#checks if the player is within 1 sqaure of another monster, used during moving or to target melee attacks
         self.proximityList = [None, None, None, None]
@@ -139,6 +143,24 @@ class Creature():
                 self.proximityList[2] = creatures
             elif creatures.positionX == self.positionX + 1 and creatures.positionY == self.positionY:
                 self.proximityList[3] = creatures
+        #print(self.proximityList)
+
+    def behaviour(self, creatureList):
+        #if not self.dead:
+        for creatures in creatureList[:]:
+            if creatures.faction != self.faction:
+                if creatures in self.proximityList:
+                    self.target = creatures
+
+                    self.dealDamage(self.target)
+                    
+
+    def turn(self, creatureList):
+        self.checkDeath()
+##        if self.dead:
+##            pass
+        self.checkProximity(creatureList)
+        self.behaviour(creatureList)
 
 
 class Humanoid(Creature):
@@ -146,6 +168,7 @@ class Humanoid(Creature):
     def __init__(self, name, positionX, positionY, strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0, headArmor=None, shoulderArmor=None, torsoArmor=None, legArmor=None, footArmor=None, weapon=None, shield=None):
         Creature.__init__(self, name, positionX, positionY, strength, constitution, dexterity, agility, intelligence, wisdom, experience, gold)
         self.headArmor = headArmor
+        print(headArmor)
         self.shoulderArmor = shoulderArmor
         self.torsoArmor = torsoArmor
         self.legArmor = legArmor
@@ -153,6 +176,48 @@ class Humanoid(Creature):
         self.weapon = weapon
         self.shield = shield
 
+        #self.calculateArmor()
+
+    def dealDamage(self, target):
+        print("attacking")
+        self.calculateDamage()
+        self.target.takeDamage(self.damage)
+        #return damage formula currently just a basic debug formula
+
+    def takeDamage(self, damage):
+        self.calculateArmor()
+        damage -= self.armor
+        if damage < 1:
+            damage = 1
+        print("defending")
+        
+        self.currentHealth -= damage
+        print(self.currentHealth)
+        #subtract apply damage after applying armor value, currently a debug formula
+
+    def calculateDamage(self):
+        if self.weapon != None:
+            self.damage = self.strength//2 + int(self.weapon.damage)
+        else:
+            self.damage = 1 + self.strength//2
+    
+    def calculateArmor(self):
+        equipArmor = 0
+        self.armor = (self.strength // 3) + (self.wisdom // 6)# + (int(self.headArmor.armor) + int(self.torsoArmor.armor) + int(self.shoulderArmor.armor) + int(self.legArmor.armor) + int(self.footArmor.armor) + int(self.shield.armor))
+        if self.headArmor != None:
+            equipArmor += int(self.headArmor.armor)
+        if self.torsoArmor != None:
+            equipArmor += int(self.torsoArmor.armor)
+        if self.legArmor != None:
+            equipArmor += int(self.legArmor.armor)
+        if self.footArmor != None:
+            equipArmor += int(self.footArmor.armor)
+        if self.shoulderArmor != None:
+            equipArmor += int(self.shoulderArmor.armor)
+        if self.shield != None:
+            equipArmor += int(self.shield.armor)
+        self.armor += (equipArmor / 5)#find the average armor value of the equipment, the shield counts as bonus and will add to armor value
+        
 ##    def checkProximity(self, creatureList):
 ##        Creature.checkProximity(self, creatureList)
 

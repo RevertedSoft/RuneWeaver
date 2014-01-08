@@ -2,3 +2,4 @@
 //name, weight, value, damage, damage Type, attack range
 //weight, value, damage and attack range must be integers, damage type must be a string that is either crushing, piercing, or slashing, name must be a string
 testWeapon, 0, 0, 0,crushing, 1
+IronLongsword, 8, 50, 5,slashing,1

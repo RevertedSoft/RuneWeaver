@@ -7,7 +7,7 @@ from pygame.locals import *
 COMBATRUNELIST = magic.getRunes('resources' + os.sep + 'magic' + os.sep + 'runes', 'combat_runes.txt')
 AUGMENTRUNELIST = magic.getAugRunes('resources' + os.sep + 'magic' + os.sep + 'runes', 'augment_runes.txt')
 WEAPONLIST = equipment.getWeapons('resources' + os.sep + 'equipment' + os.sep + 'weapons', 'normal_weapons.txt')
-MAGICWEAPONLIST = equipment.getMagWeapons('resources' + os.sep + 'equipment' + os.sep + 'weapons', 'magic_weapons.txt')
+#MAGICWEAPONLIST = equipment.getMagWeapons('resources' + os.sep + 'equipment' + os.sep + 'weapons', 'magic_weapons.txt')
 ARMORLIST = equipment.getArmor('resources' + os.sep + 'equipment' + os.sep + 'armor', 'armor.txt')
 SHIELDLIST = equipment.getShields('resources' + os.sep + 'equipment' + os.sep + 'armor', 'shield.txt')
 
@@ -25,6 +25,6 @@ floor = 0
 dungeon.append(World(40, 40))
 
 #create new creatures ###TODO### TEMPORARY
-newCreature = creature.Humanoid("goblin", 15,20,'G', "green")
+newCreature = creature.Humanoid("goblin", 15,5,'G', "green", experience = 10)
 
 

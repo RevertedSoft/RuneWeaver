@@ -2,3 +2,4 @@
 //name, weight, value, armor, crushRes, piercRes, slashRes, bodyLoc, evadebonus
 //weight, value, armor crushRes, piercRes, slashRes, evadebonus must be integers, name must be a string, bodyLoc must be a string "shield"
 testShield, 0, 0, 0, 1, 1, 1,shield, 1
+Iron Shield, 15, 25, 5, 2, 3, 4,shield,5
