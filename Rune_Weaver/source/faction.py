@@ -48,6 +48,7 @@ class Faction():
 
 
     def setRelation(self, faction, value):
+        #used to set initial relations of a faction
         self.factionRelationDict[faction] = value
 
     def alterRelation(self, faction, value):
