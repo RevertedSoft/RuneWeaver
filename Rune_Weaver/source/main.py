@@ -67,9 +67,10 @@ def main():
         
         dungeon.printWorld(win, creatureList, BLACK)
         #change the userinterface every iteration
-        userinterface.alterText([(playerChar.name + " HP:" + str(playerChar.currentHealth) + "/" + str(playerChar.maxHealth),(1,1))])
+        userinterface.alterText([[playerChar.name + " HP:" + str(playerChar.currentHealth) + "/" + str(playerChar.maxHealth),(1,1)], ["STR: " + str(playerChar.strength), (1,5)], ["CON: " + str(playerChar.constitution), (1,6)]])
         userinterface.printMenu()
         win.update()
+        win.fill((' '))
         play = playerChar.turn(creatureList)
         for creatures in creatureList[1:]:
             ai = creatures.ai(creatures, creatureList, dungeon)
