@@ -54,16 +54,21 @@ def main():
     win.autowindowupdate = False
     win.autoupdate = False
 
-    userinterface = ui.UI((40,0), (20,40), win, [("Player",(1,1))], True)
+    testButton = ui.Button((1,2), (10,3), win, [["Test",(1,1)]], True, (0,0,255), (255,0,0))
+
+    userinterface = ui.Menu((40,0), (20,40), win, [["Player",(1,1)]], True, [testButton])
+
+    
 
     play = True
 
     while play == True:
         
+        
         dungeon.printWorld(win, creatureList, BLACK)
         #change the userinterface every iteration
-        userinterface.alterText([(playerChar.name,(1,1)), (str(playerChar.currentHealth) + "/",(8,1)), (str(playerChar.maxHealth),(11,1))])
-        userinterface.printUI()
+        userinterface.alterText([(playerChar.name + " HP:" + str(playerChar.currentHealth) + "/" + str(playerChar.maxHealth),(1,1))])
+        userinterface.printMenu()
         win.update()
         play = playerChar.turn(creatureList)
         for creatures in creatureList[1:]:
