@@ -1,4 +1,4 @@
-from . import magic, equipment, faction#, creature
+from . import magic, equipment, faction, ui#, creature
 from .world import *
 import os, pygame
 from pygame.locals import *
@@ -23,6 +23,7 @@ WHITE = (255,255,255)
 #dungeon = []
 #floor = 0
 dungeon = World(40, 40)
+
 
 #create global factions using the Faction object
 monsterFaction1 = faction.Faction('monsters', 'aggressive')
