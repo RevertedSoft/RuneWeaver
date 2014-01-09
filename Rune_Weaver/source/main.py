@@ -50,7 +50,7 @@ def exitGame():
 
 def main():
     #make the pygcurse window
-    win = pygcurse.PygcurseWindow(40, 40, 'dungeons')
+    win = pygcurse.PygcurseWindow(60, 50, 'dungeons')
     win.autowindowupdate = False
     win.autoupdate = False
 

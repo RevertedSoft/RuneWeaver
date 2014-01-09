@@ -37,8 +37,8 @@ class World(Board):
                 if row == 0 or row == len(self.board) -1 or col == 0 or col == len(self.board[0]) -1:
                     self.board[row][col] = '#'
 
-##                elif random.random() < 0.35:
-##                    self.board[row][col] = '#'
+                elif random.random() < 0.1:
+                    self.board[row][col] = '#'
 
     def printWorld(self, screen, creatureList, background):
         

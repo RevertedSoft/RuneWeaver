@@ -1,8 +1,22 @@
-#module will contain the faction class used by all entities in the game
-
-
-
-
+#Rune Weaver v. 0.01
+#Copyright (c) 2013 RevertedSoft <revertedsoft.com>
+#
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation file (the "Software"), to deal
+#with the Software without limitation in the rights to use, copy, modify, merge
+#publish, distribute, but NOT to sell copies of the Software, subject to the
+#following condition:
+#
+#The above copyright notice and this permission notice shall be included in all
+#copies or substantial portions of the Software.
+#
+#THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#SOFTWARE.
 
 class Faction():
 
@@ -31,7 +45,6 @@ class Faction():
         self.knownFactionDict[factionName] = faction
         self.behavior(self.knownFactionDict[factionName])
         #this method is used when one faction is meeting another for the first time
-        #pass
 
 
     def setRelation(self, faction, value):
@@ -43,7 +56,6 @@ class Faction():
 
     def behaviorFriendly(self, faction):
         self.setRelation(faction.name, 20)
-        #pass
 
 
     def behaviorPassive(self, faction):
@@ -53,18 +65,5 @@ class Faction():
 
     def behaviorAggressive(self, faction):
         self.alterRelation(faction, -20)
-        #pass
 
 
-
-##newFaction1 = Faction('default', 'friendly', {})
-##newFaction2 = Faction('hostile', 'aggressive', {})
-##
-##newFaction1.meetNewFaction(newFaction2)
-##
-##print(newFaction1.knownFactionDict)
-##print(newFaction1.factionRelationDict)
-##newFaction1.alterRelation('hostile', -40)
-##print(newFaction1.factionRelationDict)
-##
-##print(newFaction1.name)
