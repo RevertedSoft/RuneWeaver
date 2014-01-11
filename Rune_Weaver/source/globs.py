@@ -1,4 +1,4 @@
-from . import magic, equipment, faction, ui#, creature
+from . import magic, equipment, faction, ui, pygcurse#, creature
 from .world import *
 import os, pygame
 from pygame.locals import *
@@ -19,6 +19,11 @@ BLACK = (0,0,0)
 RED = (255,0,0)
 WHITE = (255,255,255)
 
+#create pygcurse window
+win = pygcurse.PygcurseWindow(60, 50, 'dungeons')
+win.autowindowupdate = False
+win.autoupdate = False
+
 #create global world variables from World object
 #dungeon = []
 #floor = 0
@@ -34,6 +39,11 @@ monsterFaction2 = faction.Faction('goblins', 'aggressive')
 factionDict = {monsterFaction1.name: monsterFaction1,
                monsterFaction2.name: monsterFaction2,
                playerFaction.name: playerFaction}
+
+#setup dynamic display
+eventLog = ui.DynamicDisplay((0,40), (60,10), win, ["Hello"], True, (128,128,128))
+
+
 
 
 

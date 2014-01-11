@@ -122,9 +122,11 @@ class Creature():
         if ai != None:
             self.ai = aiDict[ai]
         print(self.name + "'s HP: " + str(self.currentHealth))
+        eventLog.printToDisplay(self.name + "'s HP: " + str(self.currentHealth))
 
     def dealDamage(self, target):
         print(self.name + " is attacking " + target.name)
+        eventLog.printToDisplay(self.name + " is attacking " + target.name)
         damage = self.damage + self.strength//2
         self.target.takeDamage(int(damage))
         #return damage formula currently just a basic debug formula
@@ -134,8 +136,10 @@ class Creature():
         if damage < 1:
             damage = 1
         print(self.name + " is defending")
+        eventLog.printToDisplay(self.name + " is defending")
         self.currentHealth -= int(damage)
         print(self.name + "'s HP: " + str(self.currentHealth))
+        eventLog.printToDisplay(self.name + "'s HP: " + str(self.currentHealth))
         #subtract applied damage after applying armor value, currently a debug formula
 
     def checkDeath(self):
@@ -176,6 +180,7 @@ class Humanoid(Creature):
 
     def dealDamage(self, target):
         print(self.name + " is attacking " + target.name)
+        eventLog.printToDisplay(self.name + " is attacking " + target.name)
         self.calculateDamage()
         self.target.takeDamage(int(self.damage))
         #return damage formula currently just a basic debug formula
@@ -186,9 +191,11 @@ class Humanoid(Creature):
         if damage < 1:
             damage = 1
         print(self.name + " is defending")
+        eventLog.printToDisplay(self.name + " is defending")
         
         self.currentHealth -= int(damage)
         print(self.name + "'s HP: " + str(self.currentHealth))
+        eventLog.printToDisplay(self.name + "'s HP: " + str(self.currentHealth))
         #subtract apply damage after applying armor value, currently a debug formula
 
     def calculateDamage(self):

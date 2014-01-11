@@ -50,14 +50,11 @@ def exitGame():
 
 def main():
     #make the pygcurse window
-    win = pygcurse.PygcurseWindow(60, 50, 'dungeons')
-    win.autowindowupdate = False
-    win.autoupdate = False
+    
 
-    testButton = ui.Button((1,2), (10,3), win, [["Test",(1,1)]], True, (0,0,255), (255,0,0))
+    testButton = ui.Button((1,2), (10,3), win, [["Test",(1,1)]], True, (255,0,0), (0,0,255), (255,0,0))
 
-    userinterface = ui.Menu((40,0), (20,40), win, [["Player",(1,1)]], True, [testButton])
-
+    userinterface = ui.Menu((40,0), (20,40), win, [["Player",(1,1)]], True, (0,255,0), [testButton])
     
 
     play = True
@@ -69,6 +66,7 @@ def main():
         #change the userinterface every iteration
         userinterface.alterText([[playerChar.name + " HP:" + str(playerChar.currentHealth) + "/" + str(playerChar.maxHealth),(1,1)], ["STR: " + str(playerChar.strength), (1,5)], ["CON: " + str(playerChar.constitution), (1,6)]])
         userinterface.printMenu()
+        eventLog.printUI()
         win.update()
         win.fill((' '))
         play = playerChar.turn(creatureList)

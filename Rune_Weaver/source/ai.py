@@ -103,6 +103,7 @@ class AI():
                             self.creature.positionY += 1
 
                     print(self.creature.name + " is fleeing!")
+                    eventLog.printToDisplay(self.creature.name + " is fleeing!")
             
                 
 class Passive(AI):

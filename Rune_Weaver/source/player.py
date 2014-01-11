@@ -63,6 +63,7 @@ class Player(Humanoid):
             self.checkDeath()
             if self.dead:
                 print("You have died...")
+                eventLog.printToDisplay("You have died...")
                 return False
 
             #check for any creatures within proximity of the player
@@ -83,12 +84,14 @@ class Player(Humanoid):
                             if self.proximityList[0] != None:
                                 
                                 print('There is a ' + self.proximityList[0].name + ' there.')
+                                eventLog.printToDisplay('There is a ' + self.proximityList[0].name + ' there.')
                                 self.target = self.proximityList[0]
                                 self.dealDamage(self.target)
                                 noAction = False
                             else:
                                 self.positionY -= 1
                                 print('UP')
+                                eventLog.printToDisplay('UP')
                                 noAction = False
 
                     elif event.key == K_s or event.key == K_DOWN:
@@ -96,36 +99,42 @@ class Player(Humanoid):
                             
                             if self.proximityList[1] != None:
                                 print('There is a ' + self.proximityList[1].name + ' there.')
+                                eventLog.printToDisplay('There is a ' + self.proximityList[1].name + ' there.')
                                 self.target = self.proximityList[1]
                                 self.dealDamage(self.target)
                                 noAction = False
                             else:
                                 self.positionY += 1
                                 print('DOWN')
+                                eventLog.printToDisplay('DOWN')
                                 noAction = False
 
                     elif event.key == K_a or event.key == K_LEFT:
                         if dungeon.getTile(self.positionX -1, self.positionY) != '#':
                             if self.proximityList[2] != None:
                                 print('There is a ' + self.proximityList[2].name + ' there.')
+                                eventLog.printToDisplay('There is a ' + self.proximityList[2].name + ' there.')
                                 self.target = self.proximityList[2]
                                 self.dealDamage(self.target)
                                 noAction = False
                             else:
                                 self.positionX -= 1
                                 print('LEFT')
+                                eventLog.printToDisplay('LEFT')
                                 noAction = False
 
                     elif event.key == K_d or event.key == K_RIGHT:
                         if dungeon.getTile(self.positionX +1, self.positionY) != '#':
                             if self.proximityList[3] != None:
                                 print('There is a ' + self.proximityList[3].name + ' there.')
+                                eventLog.printToDisplay('There is a ' + self.proximityList[3].name + ' there.')
                                 self.target = self.proximityList[3]
                                 self.dealDamage(self.target)
                                 noAction = False
                             else:
                                 self.positionX += 1
                                 print('RIGHT')
+                                eventLog.printToDisplay('RIGHT')
                                 noAction = False
 
         return True
