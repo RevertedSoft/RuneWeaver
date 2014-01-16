@@ -22,7 +22,7 @@
 
 import pygame, sys
 from pygame.locals import *
-from . import pygcurse, equipment, player, creature
+from . import pygcurse, equipment, player, creature, ui
 from .globs import *
 
 #create the player variable ###PLACEHOLDER###
@@ -49,32 +49,35 @@ def exitGame():
     sys.exit()
 
 def main():
-    #make the pygcurse window
     
 
-    testButton = ui.Button((1,2), (10,3), win, [["Test",(1,1)]], True, (255,0,0), (0,0,255), (255,0,0))
+    #testButton = ui.Button((1,2), (10,3), win, [ui.text("Test",(1,1))], True, (255,0,0), (0,0,255), (255,0,0))
 
-    userinterface = ui.Menu((40,0), (20,40), win, [["Player",(1,1)]], True, (0,255,0), [testButton])
+    userinterface = ui.Menu((40,0), (20,40), win, [ui.Text("Player",(1,1))], True, (0,255,0), [])# [testButton])
     
 
-    play = True
+    play = [True, True]
 
-    while play == True:
+    while play[0] == True:
         
         
         dungeon.printWorld(win, creatureList, BLACK)
         #change the userinterface every iteration
-        userinterface.alterText([[playerChar.name + " HP:" + str(playerChar.currentHealth) + "/" + str(playerChar.maxHealth),(1,1)], ["STR: " + str(playerChar.strength), (1,5)], ["CON: " + str(playerChar.constitution), (1,6)]])
+        userinterface.alterText([ui.Text(playerChar.name + " HP:" + str(playerChar.currentHealth) + "/" + str(playerChar.maxHealth),(1,1)), ui.Text("STR: " + str(playerChar.strength), (1,5)), ui.Text("CON: " + str(playerChar.constitution), (1,6)), ui.Text("DEX: " + str(playerChar.dexterity), (1,7)), ui.Text("AGI: " + str(playerChar.agility), (1,8)), ui.Text("INT: " + str(playerChar.intelligence), (1,9)), ui.Text("WIS: " + str(playerChar.wisdom), (1,10))])
         userinterface.printMenu()
         eventLog.printUI()
+        inputBox.printUI()
         win.update()
         win.fill((' '))
-        play = playerChar.turn(creatureList)
-        for creatures in creatureList[1:]:
-            ai = creatures.ai(creatures, creatureList, dungeon)
-            ai.behavior()
-            if creatures.dead:
-                creatureList.remove(creatures)
+        if play[1] == True:
+            play = playerChar.turn(creatureList)
+        else:
+            for creatures in creatureList[1:]:
+                ai = creatures.ai(creatures, creatureList, dungeon)
+                ai.behavior()
+                if creatures.dead:
+                    creatureList.remove(creatures)
+                play[1] = True
         
 
     exitGame()

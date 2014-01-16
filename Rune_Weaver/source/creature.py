@@ -168,15 +168,12 @@ class Humanoid(Creature):
     def __init__(self, name, positionX, positionY, symbol, color, faction='neutral', strength=5, constitution=5, dexterity=5, agility=5, intelligence=5, wisdom=5, experience=0, gold=0, ai='passive', headArmor=None, shoulderArmor=None, torsoArmor=None, legArmor=None, footArmor=None, weapon=None, shield=None):
         Creature.__init__(self, name, positionX, positionY, symbol, color, faction, strength, constitution, dexterity, agility, intelligence, wisdom, experience, gold, ai)
         self.headArmor = headArmor
-        #print(headArmor)
         self.shoulderArmor = shoulderArmor
         self.torsoArmor = torsoArmor
         self.legArmor = legArmor
         self.footArmor = footArmor
         self.weapon = weapon
         self.shield = shield
-
-        #self.calculateArmor()
 
     def dealDamage(self, target):
         print(self.name + " is attacking " + target.name)
@@ -206,7 +203,7 @@ class Humanoid(Creature):
     
     def calculateArmor(self):
         equipArmor = 0
-        self.armor = (self.strength // 3) + (self.wisdom // 6)# + (int(self.headArmor.armor) + int(self.torsoArmor.armor) + int(self.shoulderArmor.armor) + int(self.legArmor.armor) + int(self.footArmor.armor) + int(self.shield.armor))
+        self.armor = (self.strength // 3) + (self.wisdom // 6)
         if self.headArmor != None:
             equipArmor += int(self.headArmor.armor)
         if self.torsoArmor != None:

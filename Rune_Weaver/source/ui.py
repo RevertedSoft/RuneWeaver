@@ -18,20 +18,27 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #SOFTWARE.
 
+class Text():
+
+    def __init__(self, text, position=(0,0)):
+
+        self.text_ = text
+        self.position = position
+
 class UI():
 
     def __init__(self, position, size, surface, text=[], printBorder=False, borderColor=(0,255,0)):
         self.position = position
         self.size = size
         self.surface = surface
-        self.text = text#must be passed in as a list of tuples, first value to display the text, second to display the position(another tuple), position is relative to the ui's position
+        self.text = text#must be passed as a text object
+        print(self.text[0].text_)
 
         self.printBorder = printBorder
         self.borderColor = borderColor
 
     def printUI(self, position=(0,0), foregroundColor=(255,255,0),backgroundColor=(0,0,0)):
-        if self.printBorder:
-            self.printUIBorder(position)
+        self.printUIBorder(position)
 
         self.printString(position, foregroundColor, backgroundColor)
         
@@ -40,22 +47,24 @@ class UI():
     def printString(self, position, foregroundColor, backgroundColor):
         for messages in self.text:
             #break the message text into a list of characters
-            textList = list(messages[0])
+            textList = list(messages.text_)
             #iterate i to move the x position of the message over 1 each cycle (to iterate through each character in string)
             i = 0
             for chars in textList:
-                x = (messages[1][0] + i) + self.position[0] + position[0]
-                y = (messages[1][1]) + self.position[1] + position[1]
+                
+                x = (messages.position[0] + i) + self.position[0] + position[0]
+                y = (messages.position[1]) + self.position[1] + position[1]
                 self.surface.putchar(str(chars), x, y, foregroundColor, backgroundColor)
                 i += 1
 
     def printUIBorder(self, position=(0,0)):
-        for x in range(self.position[0] + position[0], self.size[0] + self.position[0] + position[0]):
-            for y in range(self.position[1] + position[1], self.size[1] + self.position[1] + position[1]):
-                if x == self.position[0] + position[0] or x == self.size[0] + self.position[0] + position[0] -1:
-                    self.surface.putchar('|', x, y, self.borderColor, (0,0,0))
-                elif y == self.size[1] + self.position[1] + position[1] -1 or y == self.position[1] + position[1]:
-                    self.surface.putchar('=', x, y, self.borderColor, (0,0,0))
+        if self.printBorder:
+            for x in range(self.position[0] + position[0], self.size[0] + self.position[0] + position[0]):
+                for y in range(self.position[1] + position[1], self.size[1] + self.position[1] + position[1]):
+                    if x == self.position[0] + position[0] or x == self.size[0] + self.position[0] + position[0] -1:
+                        self.surface.putchar('|', x, y, self.borderColor, (0,0,0))
+                    elif y == self.size[1] + self.position[1] + position[1] -1 or y == self.position[1] + position[1]:
+                        self.surface.putchar('=', x, y, self.borderColor, (0,0,0))
                     
 
     def alterText(self, text):
@@ -76,7 +85,7 @@ class Menu(UI):
             controllers.printController((self.position[0], self.position[1]))
 
 
-class DynamicDisplay(UI):
+class ScrollingDisplay(UI):
 
     def __init__(self, position, size, surface, text=[], printBorder=False, borderColor=(0,255,0), maxSize=25):
         #in this class, text can just be passed as a list of strings
@@ -87,13 +96,14 @@ class DynamicDisplay(UI):
         
         for i in range(len(self.text)-1, (len(self.text) - (self.size[1])), -1):
             if i > len(self.text) - (self.size[1] - 1):
-                self.printString([self.position[0] + 1, self.position[1] + i - (len(self.text)) + self.size[1] - 1], self.text[i], foregroundColor, backgroundColor)
+                self.printString((self.position[0] + 1, self.position[1] + i - (len(self.text)) + self.size[1] - 1), self.text[i].text_, foregroundColor, backgroundColor)
                 
         self.printUIBorder()
 
     def printString(self, position, string, foregroundColor=(0,255,0), backgroundColor=(0,0,0)):
+        #string = string.text_
         #this method differs from the UI's base method as the position of the text is not given through the text attribute but is dynamically determined
-            #break the message text into a list of characters
+        #break the message text into a list of characters
         textList = list(string)
         #iterate i to move the x position of the message over 1 each cycle (to iterate through each character in string)
         i = 0
@@ -108,7 +118,7 @@ class DynamicDisplay(UI):
         if len(self.text) > self.maxSize:
             self.text = self.text[-(len(text) - self.maxSize):]
 
-        self.text.append(text)
+        self.text.append(Text(text))
             
 
 class UIControls(UI):
@@ -128,11 +138,36 @@ class Button(UIControls):
 
     def __init__(self, position, size, surface, text=[], printBorder=True, borderColor=(0,255,0), backgroundColor=(0,0,0), foregroundColor=(255,255,255), rolloverColor=(0,0,255), function=None):
         #pad white space to text
-        if len(text[0][0]) < size[0]:
-            spaceToAppend = ' ' * (size[0] - len(text[0][0]) - 2)
-            text[0][0] += (spaceToAppend)
+        if len(text.text_) < size[0]:
+            spaceToAppend = ' ' * (size[0] - len(text.text_) - 2)
+            text.text_ += (spaceToAppend)
             
             
         UIControls.__init__(self, position, size, surface, text, printBorder, borderColor, backgroundColor, foregroundColor)
         self.rolloverColor = rolloverColor
         self.function = function
+
+
+class InputPrompt(UIControls):
+
+    def __init__(self, position, size, surface, text=[], printBorder=False, borderColor=(0,0,0), backgroundColor=(0,0,0), foreGroundColor=(255,255,255)):
+
+        UIControls.__init__(self, position, size, surface, text, printBorder, borderColor, backgroundColor, foreGroundColor)
+
+        self.isActive = False#determines whether the player is currently trying to type to the input
+
+
+
+
+    def typing(self, char):
+        #if the input is active change the text according to events received
+        #print(self.text.position)
+        if char != "\b":
+            self.text[0].text_ += char
+        else:
+            self.text[0].text_ = self.text[0].text_[:-1]
+
+
+
+        
+        

@@ -41,7 +41,9 @@ factionDict = {monsterFaction1.name: monsterFaction1,
                playerFaction.name: playerFaction}
 
 #setup dynamic display
-eventLog = ui.DynamicDisplay((0,40), (60,10), win, ["Hello"], True, (128,128,128))
+eventLog = ui.ScrollingDisplay((0,40), (60,9), win, [ui.Text("Hello", (0,0))], True, (128,128,128))
+
+inputBox = ui.InputPrompt((0,49), (60,1), win, [ui.Text("type here", (0,0))], False)
 
 
 
