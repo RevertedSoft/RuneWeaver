@@ -1,5 +1,5 @@
 #Rune Weaver v. 0.01
-#Copyright (c) 2013 RevertedSoft <revertedsoft.com>
+#Copyright (c) 2013 - 2014 RevertedSoft <revertedsoft.com>
 #
 #Permission is hereby granted, free of charge, to any person obtaining a copy
 #of this software and associated documentation file (the "Software"), to deal
@@ -38,6 +38,7 @@ class AI():
         self.creature = creature
         self.creatureList = creatureList
         self.world = world
+        #self.pursueTarget = None
         
     def wander(self, chance=2):
         if not self.creature.dead:
@@ -73,8 +74,12 @@ class AI():
             if len(potentialTargets) > 1:
                 targetCreature = random.randint(0, len(potentialTargets) - 1)
                 self.creature.target = potentialTargets[targetCreature]
+                self.creature.pursueTarget = None
+                self.creature.pursueTargetList == []
             elif len(potentialTargets) == 1:
                 self.creature.target = potentialTargets[0]
+                self.creature.pursueTarget = None
+                self.creature.pursueTargetList == []
             else:
                 self.creature.target = None
 
@@ -104,6 +109,55 @@ class AI():
 
                     print(self.creature.name + " is fleeing!")
                     eventLog.printToDisplay(self.creature.name + " is fleeing!")
+
+    def pursue(self, distance=3):
+        ### TODO NEEDS LOTS OF WORK
+
+        if not self.creature.dead:
+            if self.creature.target != None:
+                if self.creature.target.dead:
+                    self.creature.target == None
+            if self.creature.target == None:
+                if self.creature.pursueTarget == None:
+                    for creatures in self.creatureList[:]:
+                        #decide if there is a creature in range for the current creature to pursue
+                        if creatures.positionX >= (self.creature.positionX - distance) and creatures.positionX <= (self.creature.positionX + distance) and creatures.positionY >= (self.creature.positionY - distance) and creatures.positionY <= (self.creature.positionY + distance):
+                            if creatures.faction != self.creature.faction:
+                                self.creature.pursueTargetList.append(creatures)
+
+                                #now choose a random target
+                                if len(self.creature.pursueTargetList) > 1:
+                                    targetSelect = random.randint(0, len(self.creature.pursueTargetList) - 1)
+                                    self.creature.pursueTarget = self.creature.pursueTargetList[targetSelect]
+                                    
+                                    print(self.creature.name + " is pursuing " + self.creature.pursueTarget.name)
+                                elif len(self.creature.pursueTargetList) == 1:
+                                    self.creature.pursueTarget = self.creature.pursueTargetList[0]
+                                    
+                                    print(self.creature.name + " is pursuing " + self.creature.pursueTarget.name)
+
+
+                #determine which direction the selected target is facing and move toward it
+                if self.creature.pursueTarget != None:
+                    if self.creature.pursueTarget.positionX < self.creature.positionX:
+                        if self.world.getTile(self.creature.positionX -1, self.creature.positionY) != '#':
+                            self.creature.positionX -= 1
+                    elif self.creature.pursueTarget.positionX > self.creature.positionX:
+                        if self.world.getTile(self.creature.positionX +1, self.creature.positionY) != '#':
+                            self.creature.positionX += 1
+                    elif self.creature.pursueTarget.positionY < self.creature.positionY:
+                        if self.world.getTile(self.creature.positionX, self.creature.positionY -1) != '#':
+                            self.creature.positionY -= 1
+                    elif self.creature.pursueTarget.positionY > self.creature.positionY:
+                        if self.world.getTile(self.creature.positionX, self.creature.positionY +1) != '#':
+                            self.creature.positionY += 1
+
+
+    def finish(self):
+        del self
+
+                                
+                    
             
                 
 class Passive(AI):
@@ -113,6 +167,8 @@ class Passive(AI):
 
     def behavior(self):
         self.creature.checkDeath()
+        if self.creature.dead:
+            self.finish()
         self.wander(3)
         self.flee(18)
 
@@ -123,6 +179,8 @@ class Defensive(AI):
 
     def behavior(self):
         self.creature.checkDeath()
+        if self.creature.dead:
+            self.finish()
         self.getTarget()
         self.attackTarget()
         self.flee(5)
@@ -134,9 +192,13 @@ class Wanderer(AI):
 
     def behavior(self):
         self.creature.checkDeath()
+        if self.creature.dead:
+            self.finish()
         self.wander(8)
         self.getTarget()
         self.attackTarget()
         self.flee(6)
+        self.pursue()
+
     
 

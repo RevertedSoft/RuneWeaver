@@ -1,5 +1,5 @@
 #Rune Weaver v. 0.01
-#Copyright (c) 2013 RevertedSoft <revertedsoft.com>
+#Copyright (c) 2013 - 2014 RevertedSoft <revertedsoft.com>
 #
 #Permission is hereby granted, free of charge, to any person obtaining a copy
 #of this software and associated documentation file (the "Software"), to deal

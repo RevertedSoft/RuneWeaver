@@ -25,8 +25,6 @@ win.autowindowupdate = False
 win.autoupdate = False
 
 #create global world variables from World object
-#dungeon = []
-#floor = 0
 dungeon = World(40, 40)
 
 

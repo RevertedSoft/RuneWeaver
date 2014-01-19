@@ -1,5 +1,5 @@
 #Rune Weaver v. 0.01
-#Copyright (c) 2013 RevertedSoft <revertedsoft.com>
+#Copyright (c) 2013 - 2014 RevertedSoft <revertedsoft.com>
 #
 #Permission is hereby granted, free of charge, to any person obtaining a copy
 #of this software and associated documentation file (the "Software"), to deal
@@ -87,7 +87,7 @@ class Menu(UI):
 
 class ScrollingDisplay(UI):
 
-    def __init__(self, position, size, surface, text=[], printBorder=False, borderColor=(0,255,0), maxSize=25):
+    def __init__(self, position, size, surface, text=[], printBorder=False, borderColor=(0,255,0), maxSize=100):
         #in this class, text can just be passed as a list of strings
         UI.__init__(self,position,size,surface,text,printBorder,borderColor)
         self.maxSize = maxSize #this will determine how many strings the dynamic display will keep in memory
@@ -138,9 +138,9 @@ class Button(UIControls):
 
     def __init__(self, position, size, surface, text=[], printBorder=True, borderColor=(0,255,0), backgroundColor=(0,0,0), foregroundColor=(255,255,255), rolloverColor=(0,0,255), function=None):
         #pad white space to text
-        if len(text.text_) < size[0]:
-            spaceToAppend = ' ' * (size[0] - len(text.text_) - 2)
-            text.text_ += (spaceToAppend)
+        if len(text[0].text_) < size[0]:
+            spaceToAppend = ' ' * (size[0] - len(text[0].text_) - 2)
+            text[0].text_ += (spaceToAppend)
             
             
         UIControls.__init__(self, position, size, surface, text, printBorder, borderColor, backgroundColor, foregroundColor)

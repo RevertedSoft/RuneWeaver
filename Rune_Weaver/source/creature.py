@@ -1,5 +1,5 @@
 #Rune Weaver v. 0.01
-#Copyright (c) 2013 RevertedSoft <revertedsoft.com>
+#Copyright (c) 2013 - 2014 RevertedSoft <revertedsoft.com>
 #
 #Permission is hereby granted, free of charge, to any person obtaining a copy
 #of this software and associated documentation file (the "Software"), to deal
@@ -118,6 +118,9 @@ class Creature():
         self.isMagicTurn = False
         self.targetList = []
         self.target = None
+        self.pursueTargetList = []
+        self.pursueTarget = None
+        self.pursuers = []
         #set up the creatures AI
         if ai != None:
             self.ai = aiDict[ai]
@@ -145,6 +148,8 @@ class Creature():
     def checkDeath(self):
         if self.currentHealth <= 0:
             self.dead = True
+
+            del self
 
     def checkProximity(self, creatureList):#checks if the player is within 1 sqaure of another monster, used during moving or to target melee attacks
         self.proximityList = [None, None, None, None]
@@ -203,7 +208,7 @@ class Humanoid(Creature):
     
     def calculateArmor(self):
         equipArmor = 0
-        self.armor = (self.strength // 3) + (self.wisdom // 6)
+        self.armor = ((self.strength // 3) + (self.wisdom // 6) // 2)
         if self.headArmor != None:
             equipArmor += int(self.headArmor.armor)
         if self.torsoArmor != None:
@@ -216,7 +221,7 @@ class Humanoid(Creature):
             equipArmor += int(self.shoulderArmor.armor)
         if self.shield != None:
             equipArmor += int(self.shield.armor)
-        self.armor += (equipArmor / 5)#find the average armor value of the equipment, the shield counts as bonus and will add to armor value
+        self.armor += (equipArmor // 5)#find the average armor value of the equipment, the shield counts as bonus and will add to armor value
 
 
 class Beast(Creature):

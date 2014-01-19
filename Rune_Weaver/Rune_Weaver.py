@@ -1,5 +1,5 @@
 #Rune Weaver v. 0.01
-#Copyright (c) 2013 RevertedSoft <revertedsoft.com>
+#Copyright (c) 2013 - 2014 RevertedSoft <revertedsoft.com>
 #
 #Permission is hereby granted, free of charge, to any person obtaining a copy
 #of this software and associated documentation file (the "Software"), to deal
@@ -20,7 +20,7 @@
 
 """
 Rune Weaver 2, rebuilding and polishing the original Rune_Weaver
-Made by: Erik Martin - Jan. 2013
+Made by: Erik Martin - Jan. 2013 - 2014
 """
 
 if __name__ == '__main__':
