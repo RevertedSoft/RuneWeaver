@@ -36,6 +36,7 @@ newCreature3 = creature.Humanoid("goblin", 15,10,'G', "green", experience=10, ai
 newCreature4 = creature.Humanoid("Orc", 13,12,'O', "blue", strength=12, constitution=12, faction=factionDict["monsters"], ai="wanderer", weapon = WEAPONLIST[1])
 newCreature5 = creature.Humanoid("Hobgoblin", 16,12,'H', "green", strength=17, constitution=15, faction=factionDict["goblins"], ai="wanderer", weapon = WEAPONLIST[1], torsoArmor=ARMORLIST[1])
 newCreature6 = creature.Humanoid("Orc", 19,12,'O', "blue", strength=12, constitution=12, faction=factionDict["monsters"], ai="wanderer", weapon = WEAPONLIST[1])
+newCreature7 = creature.Humanoid("Half-Dragon", 12,12,'D', "red", strength=20, constitution=16, faction=factionDict["monsters"], ai="wanderer", weapon = WEAPONLIST[1], torsoArmor=ARMORLIST[2])
 
 creatureList = []
 creatureList.append(playerChar)
@@ -45,6 +46,7 @@ creatureList.append(newCreature3)
 creatureList.append(newCreature4)
 creatureList.append(newCreature5)
 creatureList.append(newCreature6)
+creatureList.append(newCreature7)
 
 def exitGame():
     pygame.quit()

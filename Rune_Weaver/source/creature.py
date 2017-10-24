@@ -183,9 +183,17 @@ class Humanoid(Creature):
     def dealDamage(self, target):
         print(self.name + " is attacking " + target.name)
         eventLog.printToDisplay(self.name + " is attacking " + target.name)
-        self.calculateDamage()
-        self.target.takeDamage(int(self.damage))
-        #return damage formula currently just a basic debug formula
+        hitDifficulty = self.target.evasion
+        if self.target.shield:
+            hitDifficulty += int(self.target.shield.evadeBonus)
+        if hitDifficulty > self.dexterity // 3 + 10:
+            hitDifficulty = (self.dexterity // 3) + 9
+        if (self.dexterity // 3 + random.randrange(0,11) > hitDifficulty):
+            print(self.name + " missed its attack!")
+            eventLog.printToDisplay(self.name + " missed its attack!")
+            self.calculateDamage()
+            self.target.takeDamage(int(random.randrange(self.damage // 2, self.damage)))
+            #return damage formula currently just a basic debug formula
 
     def takeDamage(self, damage):
         self.calculateArmor()

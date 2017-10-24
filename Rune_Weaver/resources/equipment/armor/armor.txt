@@ -7,3 +7,8 @@ Iron Helmet, 5, 25, 4, 2, 3, 4,head
 Iron Greaves, 20, 25, 5, 2, 3, 4,legs
 Iron Boots, 5, 25, 4, 2, 3, 4,foot
 Iron Pauldrons, 10, 25, 5, 2, 3, 4,shoulder
+Leather Harness, 10, 10, 3, 2, 0, 1,torso
+Leather Helmet, 2, 8, 3, 2, 0, 1,head
+Leather Greaves, 10, 10, 3, 2, 0, 1,legs
+Leather Boots, 2, 8, 3, 2, 0, 1,foot
+Leather Pauldrons, 4, 8, 3, 2, 0, 1,shoulder
